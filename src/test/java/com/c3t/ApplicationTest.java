@@ -3,6 +3,7 @@ package com.c3t;
 import com.codeborne.selenide.Selectors;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -31,19 +33,23 @@ public class ApplicationTest {
     public void setUp() {
         // Set authentication
         open(BASE_URL+ "login");
-        refresh();
-        $("input[name='username']").setValue("superuser@bge.com");
-        $(Selectors.byName("password")).setValue("test123");
-        $("[type='submit']").click();
+        //refresh();
+        $(By.name("username")).val("superuser@bge.com");
+        //$("input[name='username']").setValue("superuser@bge.com");
+        $(By.name("password")).val("test123");
+        $(By.name("loginSubmit")).pressEnter();
+        // $(Selectors.byName("password")).setValue("test123");
+        //$("[type='submit']").click();
     }
 
     @Test
     public void searchSubscriberValidation() {
         //System.out.println("Now the output is printed!");
         open(BASE_URL+ "subscribers");
-        refresh();
+        //refresh();
         //$("#subscriberSubmit").click();
-        $("[type='submit']").click();
-        assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
+        $(By.name("subscrSubmit")).pressEnter();
+        //$("[type='submit']").click();
+       // assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
     }
 }
