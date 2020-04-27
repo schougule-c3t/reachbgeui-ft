@@ -12,7 +12,9 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -40,13 +42,13 @@ public class ApplicationTest {
         //$("[type='submit']").click();
     }
 
-    @Test
+    /*@Test
     public void searchSubscriberValidation() {
         open(BASE_URL+ "subscribers");
         $(By.name("subscrSubmit")).click();
         assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
         $(".ra-well-title").shouldHave(text("Search Criteria"));
-    }
+    }*/
 
     @Test
     public void searchSubscriberResult() {
@@ -54,8 +56,15 @@ public class ApplicationTest {
         open(BASE_URL+ "subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
        // getWebDriver().findElement(By.id("customerNumber"));
+        $(By.name("customerNumber")).setValue("xxx0000001");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-loading-image")).shouldBe(visible);
+        assertThat($(".k-pager-info").text(), is("No items to display"));
         $(By.name("customerNumber")).setValue("0000000001");
         $(By.name("subscrSubmit")).click();
-        assertThat($(".k-pager-info").text(), is("No items to display"));
+        $(By.className("k-loading-image")).shouldBe(visible);
+        sleep(6000);
+        //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
+        $(By.className("k-pager-info")).shouldHave(text("items"));
     }
 }
