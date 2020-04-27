@@ -12,7 +12,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -28,28 +27,35 @@ public class ApplicationTest {
 
     private static final String BASE_URL = "http://localhost:8080/reachuibge/app/#app/";
 
-
-    @Test
+    @Before
     public void setUp() {
         // Set authentication
         open(BASE_URL+ "login");
         //refresh();
-        $(By.name("username")).val("superuser@bge.com");
+        $(By.name("username")).setValue("superuser@bge.com");
         //$("input[name='username']").setValue("superuser@bge.com");
-        $(By.name("password")).val("test123");
-        $(By.name("loginSubmit")).pressEnter();
+        $(By.name("password")).setValue("test123");
+        $(By.name("loginSubmit")).click();
         // $(Selectors.byName("password")).setValue("test123");
         //$("[type='submit']").click();
     }
 
     @Test
     public void searchSubscriberValidation() {
-        //System.out.println("Now the output is printed!");
         open(BASE_URL+ "subscribers");
-        //refresh();
-        //$("#subscriberSubmit").click();
-        $(By.name("subscrSubmit")).pressEnter();
-        //$("[type='submit']").click();
-       // assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
+        $(By.name("subscrSubmit")).click();
+        assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
+        $(".ra-well-title").shouldHave(text("Search Criteria"));
+    }
+
+    @Test
+    public void searchSubscriberResult() {
+        //clearBrowserCookies();
+        open(BASE_URL+ "subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+       // getWebDriver().findElement(By.id("customerNumber"));
+        $(By.name("customerNumber")).setValue("0000000001");
+        $(By.name("subscrSubmit")).click();
+        assertThat($(".k-pager-info").text(), is("No items to display"));
     }
 }
