@@ -36,31 +36,26 @@ public class ApplicationTest {
     public void setUp() {
         // Set authentication
         open(BASE_URL+ "login");
-        //refresh();
+        //clearBrowserCookies();
         $(By.name("username")).setValue("superuser@bge.com");
-        //$("input[name='username']").setValue("superuser@bge.com");
         $(By.name("password")).setValue("test123");
         $(By.name("loginSubmit")).click();
         screenshot("login.png");
-        // $(Selectors.byName("password")).setValue("test123");
-        //$("[type='submit']").click();
     }
     @Rule
     public ScreenShooter photographer = ScreenShooter.failedTests().succeededTests();
-    /*@Test
-    public void searchSubscriberValidation() {
+    @Test
+    public void searchSubscriberEmptyValidation() {
         open(BASE_URL+ "subscribers");
         $(By.name("subscrSubmit")).click();
         assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
-        $(".ra-well-title").shouldHave(text("Search Criteria"));
-    }*/
+    }
 
-    /*@Test
-    public void searchSubscriberResult() {
-        //clearBrowserCookies();
+    @Test
+    public void searchSubscriberPositiveResult() {
         open(BASE_URL+ "subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
-       // getWebDriver().findElement(By.id("customerNumber"));
+        //getWebDriver().findElement(By.id("customerNumber"));
         $(By.name("customerNumber")).setValue("xxx0000001");
         $(By.name("subscrSubmit")).click();
         $(By.className("k-loading-image")).shouldBe(visible);
@@ -68,21 +63,20 @@ public class ApplicationTest {
         $(By.name("customerNumber")).setValue("0000000001");
         $(By.name("subscrSubmit")).click();
         $(By.className("k-loading-image")).shouldBe(visible);
-        //sleep(6000);
-        //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
-        $(By.className("k-pager-info")).shouldHave(text("items"));
-    }*/
-    @Test
-    public void searchSubscriberSuccess() {
-        //clearBrowserCookies();
-        open(BASE_URL+ "subscribers");
-        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
-        $(By.name("customerNumber")).setValue("0000000001");
-        $(By.name("subscrSubmit")).click();
-        $(By.className("k-loading-image")).shouldBe(visible);
         screenshot("SubSrchLoadding.png");
         //sleep(6000);
         //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
         $(By.className("k-pager-info")).shouldHave(text("items"));
+        screenshot("SubSrchWithResult.png");
+    }
+    @Test
+    public void searchSubscriberFirstnameNegative() {
+        open(BASE_URL+ "subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("firstName")).setValue("a");
+        $(By.name("subscrSubmit")).click();
+        screenshot("FirstnameErrorMessage.png");
+        //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
     }
 }
