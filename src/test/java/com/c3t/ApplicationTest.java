@@ -1,9 +1,12 @@
 package com.c3t;
 
 import com.codeborne.selenide.Selectors;
+import com.codeborne.selenide.WebDriverRunner;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Rule;
+//import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.By;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.Cookie;
@@ -36,11 +39,12 @@ public class ApplicationTest {
     public void setUp() {
         // Set authentication
         open(BASE_URL+ "login");
-        //clearBrowserCookies();
+        clearBrowserCookies();
+        WebDriverRunner.clearBrowserCache();
         $(By.name("username")).setValue("superuser@bge.com");
         $(By.name("password")).setValue("test123");
         $(By.name("loginSubmit")).click();
-        screenshot("login.png");
+        //screenshot("login.png");
     }
     @Rule
     public ScreenShooter photographer = ScreenShooter.failedTests().succeededTests();
@@ -63,7 +67,7 @@ public class ApplicationTest {
         $(By.name("customerNumber")).setValue("0000000001");
         $(By.name("subscrSubmit")).click();
         $(By.className("k-loading-image")).shouldBe(visible);
-        screenshot("SubSrchLoadding.png");
+        //screenshot("SubSrchLoadding.png");
         //sleep(6000);
         //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
         $(By.className("k-pager-info")).shouldHave(text("items"));
@@ -75,8 +79,77 @@ public class ApplicationTest {
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
         $(By.id("firstName")).setValue("a");
         $(By.name("subscrSubmit")).click();
-        screenshot("FirstnameErrorMessage.png");
+        //screenshot("FirstnameErrorMessage.png");
         //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
         $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+        $(By.id("firstName")).setValue("aa");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
     }
+    @Test
+    public void searchSubscriberLastnameNegative() {
+        open(BASE_URL+ "subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("lastName")).setValue("a");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+        $(By.id("lastName")).setValue("aa");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+    }
+    @Test
+    public void searchSubscriberCustNoNegative() {
+        open(BASE_URL+ "subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("customerNumber")).setValue("a");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+        $(By.id("customerNumber")).setValue("aa");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+        assertThat($(By.id("customerNumber")).getAttribute("maxlength"), is("10"));
+    }
+    @Test
+    public void searchSubscriberAccNoNegative() {
+        open(BASE_URL+ "subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("accountID")).setValue("a");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+        $(By.id("accountID")).setValue("aa");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+        assertThat($(By.id("accountID")).getAttribute("maxlength"), is("11"));
+    }
+    @Test
+    public void contactSearchEmptyValid() {
+        open(BASE_URL+ "subscribers");
+        $(By.className("cont-srch")).click();
+        $(By.id("cnt-title")).shouldHave(text("Search Criteria"));
+        $(By.id("contactSubBtn")).click();
+        //screenshot("con-srch-empty-negative.png");
+        $("#contErrorMsgDiv").shouldHave(text("Please select from date"));
+        //assertThat($("#programAlert div").text(), is("Please select from date"));
+    }
+    @Test
+    public void contactSearchOnlyDateValid() {
+        open(BASE_URL+ "subscribers");
+        $(By.className("cont-srch")).click();
+        $(By.id("cnt-title")).shouldHave(text("Search Criteria"));
+        $(By.id("subscriberContactFromDate")).setValue("2020-04-01");
+        $(By.id("contactSubBtn")).click();
+        $("#contErrorMsgDiv").shouldHave(text("Please select Channel"));
+    }
+   /* @Test
+    public void contactSearchPush() {
+        open(BASE_URL+ "subscribers");
+        $(By.className("cont-srch")).click();
+        $(By.id("cnt-title")).shouldHave(text("Search Criteria"));
+        //$(By.id("notificationContactTypeChannel")).shouldBe(visible);
+        $(By.id("notificationContactTypeChannel")).selectOptionByValue("Push");
+       // $(By.id("contactSearch")).setValue("BGE_1233456");
+        //$(By.id("subscriberContactFromDate")).setValue("2020-04-01");
+        screenshot("con-srch-push-negative.png");
+        $(By.id("contactSubBtn")).click();
+    }*/
 }
