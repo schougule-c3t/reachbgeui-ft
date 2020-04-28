@@ -3,6 +3,7 @@ package com.c3t;
 import com.codeborne.selenide.Selectors;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Rule;
 import org.openqa.selenium.By;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.Cookie;
@@ -13,7 +14,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.*;
+import com.codeborne.selenide.junit.ScreenShooter;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -38,10 +41,12 @@ public class ApplicationTest {
         //$("input[name='username']").setValue("superuser@bge.com");
         $(By.name("password")).setValue("test123");
         $(By.name("loginSubmit")).click();
+        screenshot("login.png");
         // $(Selectors.byName("password")).setValue("test123");
         //$("[type='submit']").click();
     }
-
+    @Rule
+    public ScreenShooter photographer = ScreenShooter.failedTests().succeededTests();
     /*@Test
     public void searchSubscriberValidation() {
         open(BASE_URL+ "subscribers");
@@ -50,7 +55,7 @@ public class ApplicationTest {
         $(".ra-well-title").shouldHave(text("Search Criteria"));
     }*/
 
-    @Test
+    /*@Test
     public void searchSubscriberResult() {
         //clearBrowserCookies();
         open(BASE_URL+ "subscribers");
@@ -63,7 +68,20 @@ public class ApplicationTest {
         $(By.name("customerNumber")).setValue("0000000001");
         $(By.name("subscrSubmit")).click();
         $(By.className("k-loading-image")).shouldBe(visible);
-        sleep(6000);
+        //sleep(6000);
+        //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
+        $(By.className("k-pager-info")).shouldHave(text("items"));
+    }*/
+    @Test
+    public void searchSubscriberSuccess() {
+        //clearBrowserCookies();
+        open(BASE_URL+ "subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.name("customerNumber")).setValue("0000000001");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-loading-image")).shouldBe(visible);
+        screenshot("SubSrchLoadding.png");
+        //sleep(6000);
         //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
         $(By.className("k-pager-info")).shouldHave(text("items"));
     }
