@@ -140,7 +140,7 @@ public class ApplicationTest {
         $(By.id("contactSubBtn")).click();
         $("#contErrorMsgDiv").shouldHave(text("Please select Channel"));
     }
-   /* @Test
+   /* @Test //kendo drop down selection issue still pending
     public void contactSearchPush() {
         open(BASE_URL+ "subscribers");
         $(By.className("cont-srch")).click();
@@ -152,4 +152,29 @@ public class ApplicationTest {
         screenshot("con-srch-push-negative.png");
         $(By.id("contactSubBtn")).click();
     }*/
+    @Test
+    public void subscriberDetailsPage() {
+        open(BASE_URL+ "subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.name("customerNumber")).setValue("0000000001");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-loading-image")).shouldBe(visible);
+        $(By.className("k-loading-image")).shouldBe(disappear);
+        $(By.className("k-pager-info")).shouldHave(text("items"));
+        //sleep(36000);
+        $(By.className("view-det-btn")).shouldBe(visible);
+        $(By.className("view-det-btn")).click();
+        $(By.id("subDetDiv")).shouldNotHave(attribute("class", "ng-hide"));
+        $(By.className("k-loading-image")).shouldBe(visible);
+        $(By.className("k-loading-image")).shouldBe(disappear);
+        $(".pref-refresh span").shouldHave(text("Refresh"));
+        screenshot("sub-scr-det.png");
+        $(By.id("subDetContViewTab")).click();
+        screenshot("sub-scr-det1.png");
+        $(By.id("addNewContSms")).shouldBe(visible);
+        screenshot("sub-scr-det2.png");
+        $(By.id("addNewContSms")).click();
+        screenshot("sub-scr-det3.png");
+        close();
+    }
 }
