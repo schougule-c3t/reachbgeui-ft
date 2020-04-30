@@ -1,12 +1,11 @@
 package com.c3t;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.WebDriverRunner;
-import org.junit.Assert;
-import org.junit.Before;
+import org.junit.*;
 import org.junit.Test;
-import org.junit.Rule;
-//import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.Cookie;
@@ -31,14 +30,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ApplicationTest {
+public class ApplicationTest<var> {
 
     private static final String BASE_URL = "http://localhost:8080/reachuibge/app/#app/";
-
+    @BeforeClass
+    public static void setup() {
+        Configuration.baseUrl = "http://localhost:8080/reachuibge/app/#app/";
+    }
     @Before
     public void setUp() {
         // Set authentication
-        open(BASE_URL+ "login");
+        open("login");
         clearBrowserCookies();
         WebDriverRunner.clearBrowserCache();
         $(By.name("username")).setValue("superuser@bge.com");
@@ -48,16 +50,16 @@ public class ApplicationTest {
     }
     @Rule
     public ScreenShooter photographer = ScreenShooter.failedTests().succeededTests();
-    @Test
+    /*@Test
     public void searchSubscriberEmptyValidation() {
-        open(BASE_URL+ "subscribers");
+        //open("subscribers");
         $(By.name("subscrSubmit")).click();
         assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
     }
 
     @Test
     public void searchSubscriberPositiveResult() {
-        open(BASE_URL+ "subscribers");
+        //open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
         //getWebDriver().findElement(By.id("customerNumber"));
         $(By.name("customerNumber")).setValue("xxx0000001");
@@ -75,7 +77,7 @@ public class ApplicationTest {
     }
     @Test
     public void searchSubscriberFirstnameNegative() {
-        open(BASE_URL+ "subscribers");
+        //open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
         $(By.id("firstName")).setValue("a");
         $(By.name("subscrSubmit")).click();
@@ -88,7 +90,7 @@ public class ApplicationTest {
     }
     @Test
     public void searchSubscriberLastnameNegative() {
-        open(BASE_URL+ "subscribers");
+        //open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
         $(By.id("lastName")).setValue("a");
         $(By.name("subscrSubmit")).click();
@@ -99,7 +101,7 @@ public class ApplicationTest {
     }
     @Test
     public void searchSubscriberCustNoNegative() {
-        open(BASE_URL+ "subscribers");
+        //open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
         $(By.id("customerNumber")).setValue("a");
         $(By.name("subscrSubmit")).click();
@@ -111,7 +113,7 @@ public class ApplicationTest {
     }
     @Test
     public void searchSubscriberAccNoNegative() {
-        open(BASE_URL+ "subscribers");
+        //open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
         $(By.id("accountID")).setValue("a");
         $(By.name("subscrSubmit")).click();
@@ -122,8 +124,8 @@ public class ApplicationTest {
         assertThat($(By.id("accountID")).getAttribute("maxlength"), is("11"));
     }
     @Test
-    public void contactSearchEmptyValid() {
-        open(BASE_URL+ "subscribers");
+    public void contactSearchEmptyValidation() {
+        //open("subscribers");
         $(By.className("cont-srch")).click();
         $(By.id("cnt-title")).shouldHave(text("Search Criteria"));
         $(By.id("contactSubBtn")).click();
@@ -132,17 +134,17 @@ public class ApplicationTest {
         //assertThat($("#programAlert div").text(), is("Please select from date"));
     }
     @Test
-    public void contactSearchOnlyDateValid() {
-        open(BASE_URL+ "subscribers");
+    public void contactSearchOnlyDateValidation() {
+        //open("subscribers");
         $(By.className("cont-srch")).click();
         $(By.id("cnt-title")).shouldHave(text("Search Criteria"));
         $(By.id("subscriberContactFromDate")).setValue("2020-04-01");
         $(By.id("contactSubBtn")).click();
         $("#contErrorMsgDiv").shouldHave(text("Please select Channel"));
-    }
+    }*/
    /* @Test //kendo drop down selection issue still pending
     public void contactSearchPush() {
-        open(BASE_URL+ "subscribers");
+        open("subscribers");
         $(By.className("cont-srch")).click();
         $(By.id("cnt-title")).shouldHave(text("Search Criteria"));
         //$(By.id("notificationContactTypeChannel")).shouldBe(visible);
@@ -153,8 +155,9 @@ public class ApplicationTest {
         $(By.id("contactSubBtn")).click();
     }*/
     @Test
-    public void subscriberDetailsPage() {
-        open(BASE_URL+ "subscribers");
+    public void addContactNegativeCase() {
+        open("subscribers");
+        screenshot("sub-scr-det.png");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
         $(By.name("customerNumber")).setValue("0000000001");
         $(By.name("subscrSubmit")).click();
@@ -163,18 +166,39 @@ public class ApplicationTest {
         $(By.className("k-pager-info")).shouldHave(text("items"));
         //sleep(36000);
         $(By.className("view-det-btn")).shouldBe(visible);
-        $(By.className("view-det-btn")).click();
+        $(By.className("view-det-btn"),0).click();
         $(By.id("subDetDiv")).shouldNotHave(attribute("class", "ng-hide"));
         $(By.className("k-loading-image")).shouldBe(visible);
         $(By.className("k-loading-image")).shouldBe(disappear);
+        sleep(4000);
         $(".pref-refresh span").shouldHave(text("Refresh"));
-        screenshot("sub-scr-det.png");
         $(By.id("subDetContViewTab")).click();
-        screenshot("sub-scr-det1.png");
         $(By.id("addNewContSms")).shouldBe(visible);
-        screenshot("sub-scr-det2.png");
         $(By.id("addNewContSms")).click();
+        $(".modelButtonFloatRight button").shouldBe(visible);
+       // sleep(1000);
+        $(By.id("exportBtn")).pressEnter();
+        //$$("#programAlert").shouldHave(size(3));
+        String inrText = $("#programAlert").innerText();
+        inrText = inrText.trim();
+        inrText = inrText.replace("×\n" +
+                "                                                   \n" +
+                "                                                   ", "");
+        System.out.println("text=>"+inrText);
+        assertThat(inrText, is("Please enter Channel Type"));       
+        //sleep(71000);
+        screenshot("sub-scr-det2.png");
+        $(By.id("contactLabel")).setValue("a");
+        $(By.id("exportBtn")).click();
+        String mdnText = $("#programAlert").innerText();
+        mdnText = mdnText.trim();
+        mdnText = mdnText.replace("×\n" +
+                "                                                   \n" +
+                "                                                   ", "");
+        System.out.println("mdn=>"+mdnText);
+        assertThat(mdnText, is("Please enter mdn"));
         screenshot("sub-scr-det3.png");
-        close();
+        //close();
     }
+
 }
