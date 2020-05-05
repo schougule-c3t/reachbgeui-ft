@@ -34,4 +34,23 @@ dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.4.2')
     testRuntime('org.junit.jupiter:junit-jupiter-engine:5.4.2')
 }
+test {
+    systemProperties = System.properties
+}
+task chrome(type: Test) {
+  systemProperties['selenide.browser'] = 'chrome'
+  systemProperties['selenide.headless'] = 'true'
+}
 
+task firefox(type: Test) {
+  systemProperties['selenide.browser'] = 'firefox'
+  systemProperties['selenide.headless'] = 'true'
+}
+
+task ie(type: Test) {
+  systemProperties['selenide.browser'] = 'ie'
+}
+
+task edge(type: Test) {
+  systemProperties['selenide.browser'] = 'edge'
+}

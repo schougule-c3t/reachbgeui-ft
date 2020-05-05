@@ -32,10 +32,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ApplicationTest<var> {
 
-    private static final String BASE_URL = "http://localhost:8080/reachuibge/app/#app/";
+    private static final String BASE_URL = "http://69.89.12.213:8080/reachuibge/app/#app/";
     @BeforeClass
     public static void setup() {
-        Configuration.baseUrl = "http://localhost:8080/reachuibge/app/#app/";
+        Configuration.baseUrl = "http://69.89.12.213:8080/reachuibge/app/#app/";
     }
     @Before
     public void setUp() {
