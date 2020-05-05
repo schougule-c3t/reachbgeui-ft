@@ -1,0 +1,541 @@
+<html data-ng-app="ReachUiApp" data-ng-controller="reachAppMainController" lang="en-US" class="k-webkit k-webkit81 ng-scope"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}.ng-hide-add-active,.ng-hide-remove{display:block!important;}</style>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<meta charset="utf-8">
+		<title>REACH UI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="REACH UI.">
+		<meta name="author" content="REACH UI">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<link rel="shortcut icon" href="images/favicon.ico">
+		<!-- The styles starts -->
+		<!-- build:css css/combinedvendor.css -->
+		<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="css/bootstrap/bootstrap-tokenfield.min.css" type="text/css">
+		<link rel="stylesheet" href="css/kendo/kendo.common.min.css" type="text/css">
+		<link rel="stylesheet" href="css/common/font-awesome/css/font-awesome.min.css" type="text/css">
+		<!-- endbuild -->
+		<link rel="stylesheet" href="css/reach/reach-common.css" type="text/css">
+		<link rel="stylesheet" href="css/reach/reach-app.css" type="text/css">
+		<link rel="stylesheet" href="css/reach/style.css" type="text/css">
+		<link rel="stylesheet" ng-href="css/kendo/kendo.bge.min.css" type="text/css" href="css/kendo/kendo.bge.min.css">
+		<!-- The styles ends -->
+	</head>
+	<body>
+		<div id="loaddinggif" style="display: none;">
+			 <div><span>AGENT511 Preference Center</span></div>
+			 <img src="images/loader.gif" alt="Loading" height="20" width="80">
+		</div>
+		<div class="loadingIcon"></div>
+		<div class="jqloadingIcon" style="display:none;">
+			
+		</div>
+		<div class="loadingIcon-sub-det" style="display:none;">
+			<div class="k-loading-mask" style="width: 100%; height: 100%; top: 0px; left: 0px;">
+				<span class="k-loading-text">Loading...</span>
+				<div class="k-loading-image"></div>
+				<div class="k-loading-color"></div>
+			</div>
+		</div>
+		<div>
+			<div class="nav-bg" data-ng-controller="DynamicMenuController" ng-show="display" navigation-bar="" navigation-detail="navigationDetail">
+	<nav class="navbar navbar-default" role="navigation">
+	  <div class="container-fluid">
+	 
+	    <div class="navbar-header logo">
+	    
+	     	<!-- <img src="images/comed.jpg"  /> -->
+	     	<a> <img id="clientLogo" ng-src="images/flat.jpg" src="images/bge.jpg"> </a>
+	      	
+
+	    </div>
+	   
+	     <div class="btn-group pull-right">
+				<div>
+					<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs ng-binding">  super user </span>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu logout-drop-down">
+						<li><a class="textTransformNone" onclick="confirmLogout()"> <i class="fa fa-sign-out"> </i> Logout</a></li> 
+					</ul>
+				</div>
+				<div class="disp-version" ng-show="true">
+					<span class="ng-binding">D-V1.06.B</span>
+				</div>
+            </div>
+
+	    <!-- ngIf: logedInChk() --><div class="collapse navbar-collapse ng-scope" id="bs-example-navbar-collapse-1" ng-if="logedInChk()">
+	      <ul class="nav navbar-nav navbar-center nav-pills">
+	      	<!-- ngRepeat: menuDetail in navigationDetail.leftMenu | orderBy:'order' --><li id="ltab1" data-ng-repeat="menuDetail in navigationDetail.leftMenu | orderBy:'order'" ng-class="{'active' : navigationDetail.activeMenuId == menuDetail.menuId } " ng-show="checkUserRole('topMenu', menuDetail.accessRoles, menuDetail.name)" class="ng-scope">
+
+	      	<a href="#app/notifications" class="ng-binding"> <i class="fa fa-bell fa-2x"> </i>&nbsp; Notifications</a></li><!-- end ngRepeat: menuDetail in navigationDetail.leftMenu | orderBy:'order' --><li id="ltab3" data-ng-repeat="menuDetail in navigationDetail.leftMenu | orderBy:'order'" ng-class="{'active' : navigationDetail.activeMenuId == menuDetail.menuId } " ng-show="checkUserRole('topMenu', menuDetail.accessRoles, menuDetail.name)" class="ng-scope active">
+
+	      	<a href="#app/subscribers" class="ng-binding"> <i class="fa fa-users fa-2x"> </i>&nbsp; Subscribers</a></li><!-- end ngRepeat: menuDetail in navigationDetail.leftMenu | orderBy:'order' --><li id="ltab4" data-ng-repeat="menuDetail in navigationDetail.leftMenu | orderBy:'order'" ng-class="{'active' : navigationDetail.activeMenuId == menuDetail.menuId } " ng-show="checkUserRole('topMenu', menuDetail.accessRoles, menuDetail.name)" class="ng-scope">
+
+	      	<a href="#app/reports" class="ng-binding"> <i class="fa fa-table fa-2x"> </i>&nbsp; Reports</a></li><!-- end ngRepeat: menuDetail in navigationDetail.leftMenu | orderBy:'order' --><li id="ltab5" data-ng-repeat="menuDetail in navigationDetail.leftMenu | orderBy:'order'" ng-class="{'active' : navigationDetail.activeMenuId == menuDetail.menuId } " ng-show="checkUserRole('topMenu', menuDetail.accessRoles, menuDetail.name)" class="ng-scope">
+
+	      	<a href="#app/enforce" class="ng-binding"> <i class="fa fa-bullseye fa-2x"> </i>&nbsp; TCPA Portal</a></li><!-- end ngRepeat: menuDetail in navigationDetail.leftMenu | orderBy:'order' -->	
+	      </ul>	
+		 
+
+	      <ul class="nav navbar-nav navbar-right nav-pills removeTabSel">
+	        <!-- ngRepeat: menuDetail in navigationDetail.rightMenu | orderBy:'order' -->
+	        <!-- <li><a><b>Welcome,  </b> <span id="usernameTop"> {{nameToDisplay}} </span></a> </li>
+	         <li><a><div class="right-logout" onClick="confirmLogout()"><i class="fa fa-sign-out fa-2x"> </i> Logout</div> </a></li> -->
+
+	      </ul>
+	      
+	    </div><!-- end ngIf: logedInChk() -->
+	  </div>
+	</nav>
+</div>
+			<div ng-click="confirmLogoutMain()" id="confirmLogout"></div>
+			<div class="ch-container">
+				<!-- ngView:  --><div ng-view="" class="ng-scope"><div class="row ng-scope">
+   <!-- left menu starts -->
+   <!-- left menu ends -->
+   <div id="content" class="col-lg-12 col-sm-12">
+      <div class="ng-isolate-scope">
+  <ul class="nav nav-tabs" ng-class="{'nav-stacked': vertical, 'nav-justified': justified}" ng-transclude="">
+         <li ng-class="{active: active, disabled: disabled}" class="ng-isolate-scope active">
+  <a href="" ng-click="select()" tab-heading-transclude="" class="ng-binding"><tab-heading class="ng-scope">
+               <i class="fa fa-pencil-square-o"> </i> Subscriber Search
+            </tab-heading></a>
+</li>
+           <li ng-class="{active: active, disabled: disabled}" ng-show="true" class="cont-srch ng-isolate-scope">
+  <a href="" ng-click="select()" tab-heading-transclude="" class="ng-binding"><tab-heading class="ng-binding ng-scope">
+               <i class="fa fa-pencil-square-o"> </i>Contact Search  
+            </tab-heading></a>
+</li>
+
+        
+      </ul>
+  <div class="tab-content">
+    <!-- ngRepeat: tab in tabs --><div class="tab-pane ng-scope active" ng-repeat="tab in tabs" ng-class="{active: tab.active}" tab-content-transclude="tab">
+    
+            
+            <div class="box-content row ng-scope">
+               <div class="col-lg-12 col-md-12">
+                  <form name="form" ng-submit="searchSubscribers('2')" role="form" class="form-signin ng-pristine ng-valid">
+                     <div class="row">
+                        <h4 class="ra-well-title">Search Criteria</h4>
+                         <!-- ngInclude: 'modules/common/views/errorsView.html' --><div ng-show="searchSubscribersError" ng-include="'modules/common/views/errorsView.html'" class="ng-scope"><div ng-show="errors.display" class="ng-scope">
+
+							<!-- 	<div class="box-content alerts"> -->
+								<div class="alerts margin10">
+									<div ng-show="errors.info" class="alert alert-info  ng-binding ng-hide" id="">
+										<button type="button" class="close" ng-click="errors.display = false">×</button>
+										    <!-- ngIf: errors.loader --> 
+										 <!--    <div ng-bind-html="errors.infoMsg">  </div> -->
+										   
+									</div>
+									
+									<div ng-show="errors.danger" class="alert alert-danger" id="programAlert">
+									<button type="button" class="close" ng-click="errors.display = false">×</button>
+                                                   
+                                                   <div ng-bind-html="errors.dangerMsg" class="ng-binding">Please enter at least one search criteria</div>
+                                     </div>
+                                     <div ng-show="errors.success" class="alert alert-success ng-hide">
+									<button type="button" class="close" ng-click="errors.display = false">×</button>
+									
+									<div ng-bind-html="errors.successMsg" class="ng-binding"></div>
+									</div>
+
+								</div>
+							</div>
+
+							 </div>
+                        <div class="form-horizontal form-widgets col-sm-4">
+                           <div class="form-group">
+                              <label class="control-label col-sm-4" for="name">First Name&nbsp; &nbsp; : </label>
+                              <div class="col-sm-8 col-md-6">
+                                 <input id="firstName" value="" autocomplete="false" maxlength="100" ng-model="data.firstName" placeholder="First Name" style="width: 200px" class="k-textbox ng-pristine ng-valid">
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label col-sm-4">Account No.&nbsp;: </label>
+                              <div class="col-sm-8 col-md-6">
+                                 <input id="accountID" ng-model="data.accountID" maxlength="11" style="width: 200px" placeholder="Account No." class="k-textbox ng-pristine ng-valid">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="form-horizontal form-widgets col-sm-4">
+                           <div class="form-group">
+                              <label class="control-label col-sm-4" for="name">Last Name&nbsp; &nbsp; : </label>
+                              <div class="col-sm-8 col-md-6">
+                                 <input id="lastName" ng-model="data.lastName" maxlength="100" autocomplete="false" style="width: 200px" placeholder="Last Name" class="k-textbox ng-pristine ng-valid">
+                              </div>
+                           </div>
+                           <div class="form-group">
+                           </div>
+                        </div>
+                        <div class="form-horizontal form-widgets col-sm-4">
+                           <div class="form-group">
+                              <label class="control-label col-sm-4">Customer No.: </label>
+                              <div class="col-sm-8 col-md-6">
+                                 <input id="customerNumber" name="customerNumber" value="" maxlength="10" ng-model="data.customerNumber" placeholder="Customer No." class="k-textbox ng-pristine ng-valid" style="width: 200px">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="" style="float:right">
+                           <button type="submit" name="subscrSubmit" ng-disabled="form.$invalid" class="btn btn-primary btn-sm">Search<i class="fa fa-search "></i></button>
+                           <button type="button" class="btn btn-danger btn-sm" ng-click="resetSearchSubscribers()" id="resetSubsribersHistory">Reset</button>
+                           <a href="#searchResultId" id="hrefID"></a>
+                        </div>
+                     </div>
+                  </form>
+                  <div ng-show="showGrid" class="ng-hide">
+                     <div kendo-grid="" id="subscribersGridOptionsid" options="subscribersGridOptions" k-rebind="subscribersGridOptions" data-role="grid" class="k-grid k-widget">
+                     <div class="k-grid-header" style="padding-right: 17px;"><div class="k-grid-header-wrap k-auto-scrollable"><table role="grid"><colgroup></colgroup><thead role="rowgroup"><tr role="row"></tr></thead></table></div></div><div class="k-grid-content k-auto-scrollable"><table role="grid"><colgroup></colgroup><tbody role="rowgroup"></tbody></table></div></div>
+                  </div>
+               </div>
+            </div>
+            <br class="ng-scope">
+            <!-- ngIf: mainGridOptionsLoad -->
+         </div><!-- end ngRepeat: tab in tabs --><div class="tab-pane ng-scope" ng-repeat="tab in tabs" ng-class="{active: tab.active}" tab-content-transclude="tab">
+    
+            
+            <div class="box-content row ng-scope">
+               <div class="col-lg-12 col-md-12">
+                  <form name="form" ng-submit="subscriberMessegingContactHistory()" role="form" class="form-signin ng-pristine ng-valid">
+                     <div class="row">
+                        <h4 class="ra-well-title" id="cnt-title">Search Criteria</h4>
+                         <!-- ngInclude: 'modules/common/views/errorsView.html' --><div ng-show="contactSearchViewError" ng-include="'modules/common/views/errorsView.html'" id="contErrorMsgDiv" class="ng-scope ng-hide"><div ng-show="errors.display" class="ng-scope">
+
+							<!-- 	<div class="box-content alerts"> -->
+								<div class="alerts margin10">
+									<div ng-show="errors.info" class="alert alert-info  ng-binding ng-hide" id="">
+										<button type="button" class="close" ng-click="errors.display = false">×</button>
+										    <!-- ngIf: errors.loader --> 
+										 <!--    <div ng-bind-html="errors.infoMsg">  </div> -->
+										   
+									</div>
+									
+									<div ng-show="errors.danger" class="alert alert-danger" id="programAlert">
+									<button type="button" class="close" ng-click="errors.display = false">×</button>
+                                                   
+                                                   <div ng-bind-html="errors.dangerMsg" class="ng-binding">Please enter at least one search criteria</div>
+                                     </div>
+                                     <div ng-show="errors.success" class="alert alert-success ng-hide">
+									<button type="button" class="close" ng-click="errors.display = false">×</button>
+									
+									<div ng-bind-html="errors.successMsg" class="ng-binding"></div>
+									</div>
+
+								</div>
+							</div>
+
+							 </div>
+
+                        <div class="form-horizontal form-widgets col-sm-4">
+                           <div class="form-group">
+                              <label class="control-label col-sm-4" for="name">Channel&nbsp; &nbsp; : </label>
+                              <div class="col-sm-8 col-md-6">
+                                  <span title="" class="k-widget k-dropdown k-header ng-pristine ng-valid" unselectable="on" role="listbox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-owns="notificationContactTypeChannel_listbox" aria-disabled="false" aria-busy="false" aria-activedescendant="81fa5126-e67c-4a96-bc64-77088fdf17c8" style="width: 200px;"><span unselectable="on" class="k-dropdown-wrap k-state-default"><span unselectable="on" class="k-input ng-scope"></span><span unselectable="on" class="k-select" aria-label="select"><span class="k-icon k-i-arrow-60-down"></span></span></span><select id="notificationContactTypeChannel" name="notificationContactTypeChannel" ng-model="notificationContactTypeChannel" kendo-drop-down-list="" k-data-text-field="'text'" k-data-value-field="'value'" k-data-source="notificationTypeChannelDataSource" style="width: 200px; display: none;" class="ng-pristine ng-valid" data-role="dropdownlist"><option value="SMS ">SMS </option><option value="Email">Email</option><option value="Voice">Voice</option><option value="Push">Push</option></select></span>
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="control-label col-sm-4" for="name">From Date&nbsp; &nbsp; : </label>
+                              <div class="col-sm-8 col-md-6">
+                                  <span class="k-widget k-datepicker k-header ng-pristine ng-valid" style=""><span class="k-picker-wrap k-state-default"><input id="subscriberContactFromDate" k-max="maxToDate" k-format="'yyyy-MM-dd'" kendo-date-picker="" ng-model="subscriberContactFromDate" class="ng-pristine ng-valid k-input" data-role="datepicker" type="text" role="combobox" aria-expanded="false" aria-owns="subscriberContactFromDate_dateview" aria-disabled="false" style="width: 100%;"><span unselectable="on" class="k-select" aria-label="select" role="button" aria-controls="subscriberContactFromDate_dateview"><span class="k-icon k-i-calendar"></span></span></span></span>
+                              </div>
+                           </div>
+
+                           
+                        </div>
+                        <div class="form-horizontal form-widgets col-sm-4">
+                           <!-- ngIf: showHideChk('SMS') -->
+                           <!-- ngIf: showHideChk('Email') -->
+                           <!-- ngIf: showHideChk('Voice') -->
+                           <!-- ngIf: showHideChk('Push') -->
+                           <!-- ngIf: showHideChk('') --><div class="form-group ng-scope" ng-if="showHideChk('')">
+                              <label class="control-label col-sm-4 contact-label-div">&nbsp; &nbsp;  </label>
+                              <div class="col-sm-8 col-md-6">
+                                
+                              </div>
+                           </div><!-- end ngIf: showHideChk('') -->
+                          <div class="form-group">
+                              <label class="control-label col-sm-4" for="name">To Date&nbsp; &nbsp; : </label>
+                              <div class="col-sm-8 col-md-6">
+                               <span class="k-widget k-datepicker k-header ng-pristine ng-valid" style=""><span class="k-picker-wrap k-state-default"><input id="subscriberContactToDate" k-max="maxToDate" k-format="'yyyy-MM-dd'" kendo-date-picker="" ng-model="subscriberContactToDate" class="ng-pristine ng-valid k-input" data-role="datepicker" type="text" role="combobox" aria-expanded="false" aria-owns="subscriberContactToDate_dateview" aria-disabled="false" style="width: 100%;"><span unselectable="on" class="k-select" aria-label="select" role="button" aria-controls="subscriberContactToDate_dateview"><span class="k-icon k-i-calendar"></span></span></span></span>
+                              </div>
+                           </div>
+                        </div>
+                           <div class="form-horizontal form-widgets col-sm-4">
+                          
+                           <div class="form-group">
+                              <label class="control-label col-sm-4" for="name">&nbsp; &nbsp; </label>
+                              <div class="col-sm-8 col-md-6">
+                               &nbsp;
+                              </div>
+                           </div>
+                        </div>
+                      <div class="" style="float:left">
+                           <button type="submit" ng-disabled="form.$invalid" id="contactSubBtn" class="btn btn-primary btn-sm">Search<i class="fa fa-search "></i></button>
+                           <button type="button" class="btn btn-danger btn-sm" ng-click="resetContactSearch()" id="resetSubsribersHistorybtn">Reset</button>
+                           <a href="#searchResultId" id="hrefID"></a>
+                        </div>
+                  
+
+                 
+                  </div></form>
+                 
+               </div>
+            </div>
+            <br class="ng-scope">
+            <!-- ngIf: contactSearchGridOptionsLoad -->
+         </div><!-- end ngRepeat: tab in tabs -->
+  </div>
+</div>
+   </div>
+</div>
+
+
+<script class="ng-scope">
+$(".contactmask").kendoMaskedTextBox({
+   mask: "(999) 000-0000"
+});      
+</script></div>
+			</div>
+		</div>
+		
+	
+	<!-- The script starts -->
+	<!-- build:js scripts/vendorlib.js -->
+	<script src="js/common/jquery-1.12.4.min.js"></script>
+	<script src="js/common/angular.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+	<script src="js/bootstrap/moment-with-locales.js"></script>
+	<script src="js/kendo/kendo.all.min.js"></script>
+	<script src="js/common/angular-sanitize.min.js"></script>
+	<script src="js/common/angular-cookies.min.js"></script>
+	<script src="js/common/angular-route.min.js"></script>
+	<script src="js/common/angular-resource.min.js"></script>
+	<script src="js/kendo/jszip.min.js"></script>
+	<script src="js/common/jquery.steps.js"></script>
+	<script src="js/bootstrap/bootstrap-tokenfield.min.js"></script>
+	<script src="js/common/audioplayer.js"></script>
+    <!-- endbuild -->
+	<!-- build:js scripts/app.js -->
+	<script src="scripts/app.js"></script>
+    <!-- endbuild -->
+	<!-- build:js scripts/reachconfig.js -->
+	<script src="config/applicationResource.js"></script>
+	<script src="config/staticData.js"></script>
+	<script src="config/connectionPropUpdated.js"></script>
+	<script src="config/wildCardConfig.js"></script>
+	<script src="config/messagingStatusCodes.js"></script>
+	<script src="scripts/globalServices.js"></script>
+	<script src="config/rolesConfig.js"></script>
+    <!-- endbuild -->
+	<!-- build:js scripts/reachAppMainController.js -->
+	<script src="scripts/reachAppMainController.js"></script>
+    <!-- endbuild -->
+	<!-- build:js scripts/combinedreach.js -->
+	<script src="modules/dynamic-menu/dynamic-menu.js"></script>
+	<script src="modules/authentication/authServices.js"></script>
+	<script src="modules/authentication/authControllers.js"></script>
+	<script src="modules/home/homeServices.js"></script>
+	<script src="modules/home/homeControllers.js"></script>
+	<script src="modules/notifications/notificationServices.js"></script>
+	<script src="modules/notifications/notificationControllers.js"></script>
+	<script src="modules/subscribers/subscribersServices.js"></script>
+	<script src="modules/subscribers/subscribersControllers.js"></script>
+	<script src="modules/enforce/enforceControllers.js"></script>
+	<script src="modules/reports/reportsServices.js"></script>
+	<script src="modules/reports/reportsController.js"></script>
+	<script src="modules/logout/logout.js"></script>
+	<script src="modules/autoLogin/autoLogin.js"></script>
+    <!-- endbuild -->
+	<!-- The script ends -->
+	<script type="text/javascript">
+		function confirmLogout (argument) {
+			$("#confirmLogout").click();
+		}
+		$(window).load(function(){
+		   $('#loaddinggif').fadeOut("fast");
+		   kendo.ui.progress($(".loadingIcon"), false);
+		   kendo.ui.progress($(".jqloadingIcon"), false);
+		});
+	</script>
+
+<div class="k-widget k-window" data-role="draggable" style="padding-top: 33px; min-width: 90px; min-height: 50px; width: 300px; display: none;"><div class="k-window-titlebar k-header" style="margin-top: -33px;">&nbsp;<span class="k-window-title"></span><div class="k-window-actions"><a role="button" href="#" class="k-window-action k-link" aria-label="Close"><span class="k-icon k-i-close"></span></a></div></div><div kendo-window="confirmWindow" k-modal="true" k-visible="false" k-width="300" style="" data-role="window" class="k-window-content k-content" tabindex="0">
+			<div style="text-align: center; width:100%;" class="" ng-show="confirmWindow">
+				<div style="margin:10px 0 15px 0">
+					<div ng-bind-html="dialog.message" class="ng-binding"></div>
+				</div>
+				<button class="k-button k-primary" id="yesButton" ng-click="onYes()">Yes</button>
+				<button class="k-button" id="noButton" ng-click="onNo()">No</button>
+			</div>
+		</div><div class="k-resize-handle k-resize-n"></div><div class="k-resize-handle k-resize-e"></div><div class="k-resize-handle k-resize-s"></div><div class="k-resize-handle k-resize-w"></div><div class="k-resize-handle k-resize-se"></div><div class="k-resize-handle k-resize-sw"></div><div class="k-resize-handle k-resize-ne"></div><div class="k-resize-handle k-resize-nw"></div></div><div class="k-widget k-window" data-role="draggable" style="padding-top: 33px; min-width: 90px; min-height: 50px; display: none; top: 21px; left: 20px;"><div class="k-window-titlebar k-header" style="margin-top: -33px;">&nbsp;<span class="k-window-title"></span><div class="k-window-actions"><a role="button" href="#" class="k-window-action k-link" aria-label="Close"><span class="k-icon k-i-close"></span></a></div></div><div kendo-window="templateWindow" k-actions="['Close']" k-visible="false" k-modal="true" k-content="{ url: 'modules/notifications/views/templateWindow.html' }" class="ng-scope k-window-content k-content" data-role="window" tabindex="0"><div class="draftTemplate ng-scope">
+<div ng-show="mobileTemplatePreview" class="ng-hide">
+   <div class="imageMail">
+      <img src="../app/images/mobile.png" alt="">
+      <div class="imageSmsBody">
+         <p ng-bind-html="body" class="ng-binding"></p>
+      </div>
+   </div>
+   <br>
+   <div class="enableDisable ng-hide" ng-show="enableDisable">
+      <div class="onoffswitch col-lg-4">
+         <input type="checkbox" ng-click="enableDisableConfirm();" name="enableSMSTemplate" class="onoffswitch-checkbox" id="enableSMSTemplate" style="display:none;">
+         <label class="onoffswitch-label" for="enableSMSTemplate">
+         <span class="onoffswitch-inner"></span>
+         <span class="onoffswitch-switch"></span>
+         </label>
+      </div>
+   </div>
+
+</div>
+<div ng-show="emailTemplatePreview" class="ng-hide">
+   <div class="imageMail">
+      <img src="../app/images/mail3.png" alt="">
+       <div class="imageMailFrom">
+         <span ng-bind-html="emailfrom" class="ng-binding"></span>
+      </div>
+       <div class="imageMailTo">
+         <span ng-bind-html="emailto" class="ng-binding"></span>
+      </div>
+      <div class="imageMailSentDate">
+         <span ng-bind-html="sentdate" class="ng-binding"></span>
+      </div>
+      <div class="imageMailSubject">
+         <span ng-bind-html="subject" class="ng-binding"></span>
+      </div>
+      <div class="imageMailBody">
+          <span ng-bind-html="body" class="ng-binding"></span> 
+      </div>
+   </div>
+   <br>
+   <div class="enableDisable ng-hide" ng-show="enableDisable">
+      <div class="onoffswitch col-lg-4">
+         <input type="checkbox" name="enableEMAILTemplate" ng-click="enableDisableConfirm();" class="onoffswitch-checkbox" id="enableEMAILTemplate" style="display:none;">
+         <label class="onoffswitch-label" for="enableEMAILTemplate">
+         <span class="onoffswitch-inner"></span>
+         <span class="onoffswitch-switch"></span>
+         </label>
+      </div>
+   </div>
+</div>
+<div ng-show="twitterTemplatePreview" class="ng-hide">
+   <div class="imageMail">
+      <img src="../app/images/update.png" alt="">
+      <div class="imageTwitterBody">
+         <span ng-bind-html="body" class="ng-binding"></span>
+      </div>
+   </div>
+   <br>
+   <div class="enableDisable ng-hide" ng-show="enableDisable">
+      <div class="onoffswitch col-lg-4">
+         <input type="checkbox" name="enableTWITTERTemplate" ng-click="enableDisableConfirm();" class="onoffswitch-checkbox" id="enableTWITTERTemplate" style="display:none;">
+         <label class="onoffswitch-label" for="enableTWITTERTemplate">
+         <span class="onoffswitch-inner"></span>
+         <span class="onoffswitch-switch"></span>
+         </label>
+      </div>
+   </div>
+</div>
+<div ng-show="voiceTemplatePreview" class="ng-hide">
+   <div class="imageMail">
+      <img src="../app/images/Voice1.png" alt="">
+      <div class="imageVoiceBody">
+         <span ng-bind-html="body" class="ng-binding"></span>
+      </div>
+   </div>
+   <br>
+   <div class="enableDisable ng-hide" ng-show="enableDisable">
+      <div class="onoffswitch col-lg-4">
+         <input type="checkbox" name="enableVOICETemplate" ng-checked="enableDisableVal" ng-click="enableDisableConfirm();" class="onoffswitch-checkbox" id="enableVOICETemplate" style="display:none;">
+         <label class="onoffswitch-label" for="enableVOICETemplate">
+         <span class="onoffswitch-inner"></span>
+         <span class="onoffswitch-switch"></span>
+         </label>
+      </div>
+   </div>
+</div>
+
+<div ng-show="pushTemplatePreview" class="ng-hide">
+   <div class="imageMail">
+      <img src="../app/images/push1.jpg" alt="">
+      <div class="imagePushBody">
+         <span ng-bind-html="body" class="ng-binding"></span>
+      </div>
+   </div>
+   <br>
+   <div class="enableDisable ng-hide" ng-show="enableDisable">
+      <div class="onoffswitch col-lg-4">
+         <input type="checkbox" name="enablePUSHTemplate" ng-checked="enableDisableVal" ng-click="enableDisableConfirm();" class="onoffswitch-checkbox" id="enablePUSHTemplate" style="display:none;">
+         <label class="onoffswitch-label" for="enablePUSHTemplate">
+         <span class="onoffswitch-inner"></span>
+         <span class="onoffswitch-switch"></span>
+         </label>
+      </div>
+   </div>
+</div>
+
+   <div class="inputNumber draftNum ng-hide" ng-show="inputNumber">
+     <div class="floatLeft ng-hide" ng-show="carreirDd">
+       Carrier Type &nbsp; : 
+     
+        <!--  <select id="carriedID" name="" ng-model="carriedID" kendo-drop-down-list
+                              k-data-text-field="'text'"
+                              k-data-value-field="'value'"
+                              k-data-source="carriedIDDataSource"
+                              style="width: 150px" ></select> -->
+
+                              <span title="" class="k-widget k-dropdown k-header ng-pristine ng-valid" unselectable="on" role="listbox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-owns="carriedID_listbox" aria-disabled="false" aria-busy="false" style="width: 200px;"><span unselectable="on" class="k-dropdown-wrap k-state-default"><span unselectable="on" class="k-input ng-scope"></span><span unselectable="on" class="k-select" aria-label="select"><span class="k-icon k-i-arrow-60-down"></span></span></span><select id="carriedID" name="carriedID" ng-model="carriedID" kendo-drop-down-list="" k-data-text-field="'text'" k-data-value-field="'value'" k-filter="'startswith'" k-data-source="carrierIdsDataSource" style="width: 200px; display: none;" class="ng-pristine ng-valid" data-role="dropdownlist"></select></span>
+
+     </div>
+	<!-- <div id="addheight" class="testdraft-empty-div"></div>-->
+		<!-- ngInclude: 'modules/common/views/errorsView.html' --><div ng-include="'modules/common/views/errorsView.html'" class="ng-scope"><div ng-show="errors.display" class="ng-scope">
+
+							<!-- 	<div class="box-content alerts"> -->
+								<div class="alerts margin10">
+									<div ng-show="errors.info" class="alert alert-info  ng-binding ng-hide" id="">
+										<button type="button" class="close" ng-click="errors.display = false">×</button>
+										    <!-- ngIf: errors.loader --> 
+										 <!--    <div ng-bind-html="errors.infoMsg">  </div> -->
+										   
+									</div>
+									
+									<div ng-show="errors.danger" class="alert alert-danger" id="programAlert">
+									<button type="button" class="close" ng-click="errors.display = false">×</button>
+                                                   
+                                                   <div ng-bind-html="errors.dangerMsg" class="ng-binding">Please enter at least one search criteria</div>
+                                     </div>
+                                     <div ng-show="errors.success" class="alert alert-success ng-hide">
+									<button type="button" class="close" ng-click="errors.display = false">×</button>
+									
+									<div ng-bind-html="errors.successMsg" class="ng-binding"></div>
+									</div>
+
+								</div>
+							</div>
+
+							 </div>
+      <div class="floatLeft ng-binding">
+        : 
+       <input type="text" class="k-input" ng-disable="disableButton" id="senderID" onkeypress="contactmasking(event,$scope.templateInEdit)"> <br>
+     </div>    
+      <div class="floatRight">        
+        <button ng-click="sendMessage();" type="submit" class="btn btn-primary">Send</button>
+     </div>
+   </div>
+</div>
+<br class="ng-scope">
+<br class="ng-scope">
+<script class="ng-scope">
+   function contactmasking(event,channel){
+      if(channel == 'VOICE' || channel == 'SMS'){
+         var senderidLength = ($('#senderID').val()).length;
+         if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
+            event.preventDefault();
+         }
+         if(parseInt(senderidLength) > 9){
+            event.preventDefault();
+         }
+      } 
+   }  
+</script></div><div class="k-resize-handle k-resize-n"></div><div class="k-resize-handle k-resize-e"></div><div class="k-resize-handle k-resize-s"></div><div class="k-resize-handle k-resize-w"></div><div class="k-resize-handle k-resize-se"></div><div class="k-resize-handle k-resize-sw"></div><div class="k-resize-handle k-resize-ne"></div><div class="k-resize-handle k-resize-nw"></div></div><div class="k-list-container k-popup k-group k-reset" id="notificationContactTypeChannel-list" data-role="popup" style="display: none; position: absolute;"><div class="k-group-header" style="display:none"></div><div class="k-list-scroller" unselectable="on"><ul unselectable="on" class="k-list k-reset" tabindex="-1" aria-hidden="true" id="notificationContactTypeChannel_listbox" aria-live="off" data-role="staticlist" role="listbox"><li tabindex="-1" role="option" unselectable="on" class="k-item ng-scope k-state-focused" data-offset-index="0" id="81fa5126-e67c-4a96-bc64-77088fdf17c8" aria-selected="true">SMS </li><li tabindex="-1" role="option" unselectable="on" class="k-item ng-scope" data-offset-index="1">Email</li><li tabindex="-1" role="option" unselectable="on" class="k-item ng-scope" data-offset-index="2">Voice</li><li tabindex="-1" role="option" unselectable="on" class="k-item ng-scope" data-offset-index="3">Push</li></ul></div><div class="k-nodata ng-scope" style="display:none"><div>No data found.</div></div></div><div aria-hidden="true" class="k-calendar-container k-popup k-group k-reset" id="subscriberContactFromDate_dateview" data-role="popup" style="display: none; position: absolute;"></div><div aria-hidden="true" class="k-calendar-container k-popup k-group k-reset" id="subscriberContactToDate_dateview" data-role="popup" style="display: none; position: absolute;"></div><div class="k-list-container k-popup k-group k-reset" id="carriedID-list" data-role="popup" style="display: none; position: absolute;"><span class="k-list-filter"><input class="k-textbox" role="listbox" aria-haspopup="true" aria-expanded="false" aria-owns="carriedID_listbox" tabindex="0" aria-disabled="false"><span class="k-icon k-i-zoom"></span></span><div class="k-group-header" style="display:none"></div><div class="k-list-scroller" unselectable="on"><ul unselectable="on" class="k-list k-reset" tabindex="-1" aria-hidden="true" id="carriedID_listbox" aria-live="polite" data-role="staticlist" role="listbox"></ul></div><div class="k-nodata ng-scope" style=""><div>No data found.</div></div></div></body></html>
