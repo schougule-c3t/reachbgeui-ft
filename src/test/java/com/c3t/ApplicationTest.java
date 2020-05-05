@@ -50,14 +50,14 @@ public class ApplicationTest<var> {
     }
     @Rule
     public ScreenShooter photographer = ScreenShooter.failedTests().succeededTests();
-    /*@Test
+    @Test
     public void searchSubscriberEmptyValidation() {
         //open("subscribers");
         $(By.name("subscrSubmit")).click();
         assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
     }
 
-    @Test
+   /* @Test
     public void searchSubscriberPositiveResult() {
         //open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
@@ -154,7 +154,7 @@ public class ApplicationTest<var> {
         screenshot("con-srch-push-negative.png");
         $(By.id("contactSubBtn")).click();
     }*/
-    @Test
+    /*@Test
     public void addContactNegativeCase() {
         open("subscribers");
         screenshot("sub-scr-det.png");
@@ -199,6 +199,6 @@ public class ApplicationTest<var> {
         assertThat(mdnText, is("Please enter mdn"));
         screenshot("sub-scr-det3.png");
         //close();
-    }
+    }*/
 
 }
