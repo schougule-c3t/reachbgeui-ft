@@ -52,13 +52,12 @@ public class ApplicationTest<var> {
     public ScreenShooter photographer = ScreenShooter.failedTests().succeededTests();
     @Test
     public void searchSubscriberEmptyValidation() {
-        //open("subscribers");
-        //$(By.name("subscrSubmit")).click();
-        //assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
-        assertThat("welcome", is("welcome"));
+        open("subscribers");
+        $(By.name("subscrSubmit")).click();
+        assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));        
     }
 
-    /*@Test
+    @Test
     public void searchSubscriberPositiveResult() {
         //open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
@@ -142,7 +141,7 @@ public class ApplicationTest<var> {
         $(By.id("subscriberContactFromDate")).setValue("2020-04-01");
         $(By.id("contactSubBtn")).click();
         $("#contErrorMsgDiv").shouldHave(text("Please select Channel"));
-    }*/
+    }
    /* @Test //kendo drop down selection issue still pending
     public void contactSearchPush() {
         open("subscribers");
