@@ -40,6 +40,7 @@ test {
 task chrome(type: Test) {
   systemProperties['selenide.browser'] = 'chrome'
   systemProperties['selenide.headless'] = 'true'
+  systemProperties['chromeoptions.args'] = '--headless,--disable-gpu,--no-sandbox,--disable-dev-shm-usage'
 }
 
 task firefox(type: Test) {
