@@ -123,7 +123,7 @@ public class ApplicationTest<var> {
         $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
         assertThat($(By.id("accountID")).getAttribute("maxlength"), is("11"));
     }
-    @Test
+    /*@Test
     public void contactSearchEmptyValidation() {
         //open("subscribers");
         $(By.className("cont-srch")).click();
@@ -141,7 +141,7 @@ public class ApplicationTest<var> {
         $(By.id("subscriberContactFromDate")).setValue("2020-04-01");
         $(By.id("contactSubBtn")).click();
         $("#contErrorMsgDiv").shouldHave(text("Please select Channel"));
-    }
+    }*/
    /* @Test //kendo drop down selection issue still pending
     public void contactSearchPush() {
         open("subscribers");
