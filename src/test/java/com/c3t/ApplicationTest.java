@@ -57,7 +57,7 @@ public class ApplicationTest<var> {
         assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));        
     }
 
-    @Test
+    /*@Test
     public void searchSubscriberPositiveResult() {
         //open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
@@ -74,7 +74,7 @@ public class ApplicationTest<var> {
         //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
         $(By.className("k-pager-info")).shouldHave(text("items"));
         screenshot("SubSrchWithResult.png");
-    }
+    }*/
     @Test
     public void searchSubscriberFirstnameNegative() {
         //open("subscribers");
