@@ -3,6 +3,7 @@ package com.c3t;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.WebDriverRunner;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.*;
 import org.junit.Test;
 import org.junit.jupiter.api.*;
@@ -32,10 +33,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ApplicationTest<var> {
 
-    private static final String BASE_URL = "http://69.89.12.213:8080/reachuibgeTestAutomation/app/#app/";
+    //private static final String BASE_URL = "http://localhost:8080/reachuibgeTestAutomation/app/#app/";
     @BeforeClass
     public static void setup() {
-        Configuration.baseUrl = "http://69.89.12.213:8080/reachuibgeTestAutomation/app/#app/";
+        Configuration.baseUrl = "http://localhost:8080/reachuibgeTestAutomation/app/#app/";
     }
     @Before
     public void setUp() {
@@ -44,7 +45,7 @@ public class ApplicationTest<var> {
         clearBrowserCookies();
         WebDriverRunner.clearBrowserCache();
         $(By.name("username")).setValue("superuser@bge.com");
-        $(By.name("password")).setValue("test123");
+        $(By.name("password")).setValue("test123bge");
         $(By.name("loginSubmit")).click();
         //screenshot("login.png");
     }
@@ -52,12 +53,12 @@ public class ApplicationTest<var> {
     public ScreenShooter photographer = ScreenShooter.failedTests().succeededTests();
     @Test
     public void searchSubscriberEmptyValidation() {
-        open("subscribers");
+        //open("subscribers");
         $(By.name("subscrSubmit")).click();
-        assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));        
+        assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
     }
 
-    /*@Test
+    @Test
     public void searchSubscriberPositiveResult() {
         //open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
@@ -66,15 +67,15 @@ public class ApplicationTest<var> {
         $(By.name("subscrSubmit")).click();
         $(By.className("k-loading-image")).shouldBe(visible);
         assertThat($(".k-pager-info").text(), is("No items to display"));
-        $(By.name("customerNumber")).setValue("0000000001");
+        $(By.name("customerNumber")).setValue("0000000102");
         $(By.name("subscrSubmit")).click();
         $(By.className("k-loading-image")).shouldBe(visible);
         //screenshot("SubSrchLoadding.png");
         //sleep(6000);
         //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
         $(By.className("k-pager-info")).shouldHave(text("items"));
-        screenshot("SubSrchWithResult.png");
-    }*/
+        //screenshot("SubSrchWithResult.png");
+    }
     @Test
     public void searchSubscriberFirstnameNegative() {
         //open("subscribers");
@@ -123,7 +124,7 @@ public class ApplicationTest<var> {
         $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
         assertThat($(By.id("accountID")).getAttribute("maxlength"), is("11"));
     }
-    /*@Test
+    @Test
     public void contactSearchEmptyValidation() {
         //open("subscribers");
         $(By.className("cont-srch")).click();
@@ -131,6 +132,7 @@ public class ApplicationTest<var> {
         $(By.id("contactSubBtn")).click();
         //screenshot("con-srch-empty-negative.png");
         $("#contErrorMsgDiv").shouldHave(text("Please select from date"));
+        //$(".errorMsg").shouldHave(text("Please select from date"));
         //assertThat($("#programAlert div").text(), is("Please select from date"));
     }
     @Test
@@ -141,25 +143,12 @@ public class ApplicationTest<var> {
         $(By.id("subscriberContactFromDate")).setValue("2020-04-01");
         $(By.id("contactSubBtn")).click();
         $("#contErrorMsgDiv").shouldHave(text("Please select Channel"));
-    }*/
-   /* @Test //kendo drop down selection issue still pending
-    public void contactSearchPush() {
-        open("subscribers");
-        $(By.className("cont-srch")).click();
-        $(By.id("cnt-title")).shouldHave(text("Search Criteria"));
-        //$(By.id("notificationContactTypeChannel")).shouldBe(visible);
-        $(By.id("notificationContactTypeChannel")).selectOptionByValue("Push");
-       // $(By.id("contactSearch")).setValue("BGE_1233456");
-        //$(By.id("subscriberContactFromDate")).setValue("2020-04-01");
-        screenshot("con-srch-push-negative.png");
-        $(By.id("contactSubBtn")).click();
-    }*/
-    /*@Test
+    }
+    @Test
     public void addContactNegativeCase() {
         open("subscribers");
-        screenshot("sub-scr-det.png");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
-        $(By.name("customerNumber")).setValue("0000000001");
+        $(By.name("customerNumber")).setValue("0000000102");
         $(By.name("subscrSubmit")).click();
         $(By.className("k-loading-image")).shouldBe(visible);
         $(By.className("k-loading-image")).shouldBe(disappear);
@@ -185,9 +174,9 @@ public class ApplicationTest<var> {
                 "                                                   \n" +
                 "                                                   ", "");
         System.out.println("text=>"+inrText);
-        assertThat(inrText, is("Please enter Channel Type"));       
+        assertThat(inrText, is("Please enter Channel Type"));
         //sleep(71000);
-        screenshot("sub-scr-det2.png");
+        //screenshot("sub-scr-det2.png");
         $(By.id("contactLabel")).setValue("a");
         $(By.id("exportBtn")).click();
         String mdnText = $("#programAlert").innerText();
@@ -197,8 +186,86 @@ public class ApplicationTest<var> {
                 "                                                   ", "");
         System.out.println("mdn=>"+mdnText);
         assertThat(mdnText, is("Please enter mdn"));
-        screenshot("sub-scr-det3.png");
+        //screenshot("sub-scr-det3.png");
         //close();
+    }
+    @Test
+    public void addContactAtrrMaxlengthExist() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.name("customerNumber")).setValue("0000000102");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-loading-image")).shouldBe(visible);
+        $(By.className("k-loading-image")).shouldBe(disappear);
+        $(By.className("k-pager-info")).shouldHave(text("items"));
+        //sleep(36000);
+        $(By.className("view-det-btn")).shouldBe(visible);
+        $(By.className("view-det-btn"),0).click();
+        $(By.id("subDetDiv")).shouldNotHave(attribute("class", "ng-hide"));
+        $(By.className("k-loading-image")).shouldBe(visible);
+        $(By.className("k-loading-image")).shouldBe(disappear);
+        sleep(4000);
+        $(".pref-refresh span").shouldHave(text("Refresh"));
+        $(By.id("subDetContViewTab")).click();
+        $(By.id("addNewContSms")).shouldBe(visible);
+        $(By.id("addNewContSms")).click();
+        $(".modelButtonFloatRight button").shouldBe(visible);
+        // sleep(1000);
+        $(By.id("contactLabel")).shouldHave(attribute("maxlength"));
+    }
+    
+   /* @Test //kendo drop down selection issue still pending
+    public void contactSearchPush() {
+        open("subscribers");
+        $(By.className("cont-srch")).click();
+        $(By.id("cnt-title")).shouldHave(text("Search Criteria"));
+        //$(By.id("notificationContactTypeChannel")).shouldBe(visible);
+        $(By.id("notificationContactTypeChannel")).selectOptionByValue("Push");
+       // $(By.id("contactSearch")).setValue("BGE_1233456");
+        //$(By.id("subscriberContactFromDate")).setValue("2020-04-01");
+       // screenshot("con-srch-push-negative.png");
+        $(By.id("contactSubBtn")).click();
     }*/
+    /*@Test
+    public void addContactPositiveTestCase() {
+        open("subscribers");
+        sleep(10000);
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.name("customerNumber")).setValue("0000000102");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-loading-image")).shouldBe(visible);
+        $(By.className("k-loading-image")).shouldBe(disappear);
+        $(By.className("k-pager-info")).shouldHave(text("items"));
+        //sleep(36000);
+        $(By.className("view-det-btn")).shouldBe(visible);
+        $(By.className("view-det-btn"),0).click();
+        $(By.id("subDetDiv")).shouldNotHave(attribute("class", "ng-hide"));
+        $(By.className("k-loading-image")).shouldBe(visible);
+        $(By.className("k-loading-image")).shouldBe(disappear);
+        sleep(4000);
+        $(".pref-refresh span").shouldHave(text("Refresh"));
+        $(By.id("subDetContViewTab")).click();
+        $(By.id("addNewContSms")).shouldBe(visible);
+        int trLength = $("#subscriberDataSMSGrid table tbody").findElements(By.tagName("tr")).size();
+        System.out.println("subscriberDataSMSGrid "+$("#subscriberDataSMSGrid table tbody").findElements(By.tagName("tr")).size());
+        $(By.id("addNewContSms")).click();
+        $(".modelButtonFloatRight button").shouldBe(visible);
+        // sleep(1000);
+		String rndStr = RandomStringUtils.randomAlphabetic(8);
+        $(By.id("contactLabel")).setValue(rndStr);
+        $(By.id("mdn")).click();
+        $(By.id("mdn")).sendKeys("(454) 545-4545");
+        $(By.id("exportBtn")).pressEnter();
+        sleep(3000);
+        System.out.println("subscriberDataSMSGrid after"+$("#subscriberDataSMSGrid table tbody").findElements(By.tagName("tr")).size());
+        int trLength1 = $("#subscriberDataSMSGrid table tbody").findElements(By.tagName("tr")).size();
+		$("#subscriberDataSMSGrid table tbody tr td").shouldHave(text(rndStr));
+		//$(“table.foo tr td”).shouldHave(text(“selenide”))
+		//$("#subscriberDataSMSGrid table tbody tr td").shouldHave(text(rndStr));
+        String successText = $(".alerts .alert-success div").innerText();
+        System.out.println("successText"+successText);
+        //assertThat(successText, is("Contact Added Successfully."));
+        //$$("#subscriberDataSMSGrid table tbody tr").shouldHave(sizeGreaterThan(trLength));
 
+    }*/
 }
