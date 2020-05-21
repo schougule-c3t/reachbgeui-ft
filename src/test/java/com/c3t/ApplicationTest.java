@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ApplicationTest<var> {
 
-    //private static final String BASE_URL = "http://localhost:8080/reachuibgeTestAutomation/app/#app/";
+    private static final String BASE_URL = "http://localhost:8080/reachuibgeTestAutomation/app/#app/";
     @BeforeClass
     public static void setup() {
         Configuration.baseUrl = "http://localhost:8080/reachuibgeTestAutomation/app/#app/";
