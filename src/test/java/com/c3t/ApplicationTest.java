@@ -56,7 +56,7 @@ public class ApplicationTest<var> {
         $(By.name("subscrSubmit")).click();
         assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
     }
-    @Test
+    /*@Test
     public void searchSubscriberPositiveResult() {
         //open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
@@ -73,7 +73,7 @@ public class ApplicationTest<var> {
         //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
         $(By.className("k-pager-info")).shouldHave(text("items"));
         //screenshot("SubSrchWithResult.png");
-    }
+    }*/
     @Test
     public void searchSubscriberFirstnameNegative() {
         //open("subscribers");
@@ -142,7 +142,7 @@ public class ApplicationTest<var> {
         $(By.id("contactSubBtn")).click();
         $("#contErrorMsgDiv").shouldHave(text("Please select Channel"));
     }
-    @Test
+    /*@Test
     public void addContactNegativeCase() {
         open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
@@ -186,6 +186,36 @@ public class ApplicationTest<var> {
         assertThat(mdnText, is("Please enter mdn"));
         screenshot("sub-scr-det3.png");
         //close();
+    }*/
+	@Test
+    public void addContactSuccessTestCase() {
+        open("subscribers");
+        sleep(10000);
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.name("customerNumber")).setValue("0000000102");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-pager-info")).shouldHave(text("items"));
+        //sleep(36000);
+        $(By.className("view-det-btn")).shouldBe(visible);
+        $(By.className("view-det-btn"),0).click();
+        $(By.id("subDetDiv")).shouldNotHave(attribute("class", "ng-hide"));
+        //sleep(4000);
+        $(".pref-refresh span").shouldHave(text("Refresh"));
+        $(By.id("subDetContViewTab")).click();
+        $(By.id("addNewContSms")).shouldBe(visible);
+        $(By.id("addNewContSms")).click();
+        $(".modelButtonFloatRight button").shouldBe(visible);
+        // sleep(1000);
+		String rndStr = RandomStringUtils.randomAlphabetic(8);
+        $(By.id("contactLabel")).setValue(rndStr);
+        $(By.id("mdn")).click();
+        $(By.id("mdn")).sendKeys("(454) 545-4545");
+        $(By.id("exportBtn")).pressEnter();
+        //sleep(3000);
+        $(By.id("contactdata")).shouldBe(disappear);
+        String successText = $(".alert-success div").innerText();
+        System.out.println("successText"+successText);
+        assertThat(successText, is("Contact Added Successfully."));
     }
     /*@Test
     public void addContactAtrrMaxlengthExist() {
@@ -224,47 +254,6 @@ public class ApplicationTest<var> {
        // screenshot("con-srch-push-negative.png");
         $(By.id("contactSubBtn")).click();
     }
-    @Test
-    public void addContactPositiveTestCase() {
-        open("subscribers");
-        sleep(10000);
-        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
-        $(By.name("customerNumber")).setValue("0000000102");
-        $(By.name("subscrSubmit")).click();
-        $(By.className("k-loading-image")).shouldBe(visible);
-        $(By.className("k-loading-image")).shouldBe(disappear);
-        $(By.className("k-pager-info")).shouldHacontactSearchEmptyValidationve(text("items"));
-        //sleep(36000);
-        $(By.className("view-det-btn")).shouldBe(visible);
-        $(By.className("view-det-btn"),0).click();
-        $(By.id("subDetDiv")).shouldNotHave(attribute("class", "ng-hide"));
-        $(By.className("k-loading-image")).shouldBe(visible);
-        $(By.className("k-loading-image")).shouldBe(disappear);
-        sleep(4000);
-        $(".pref-refresh span").shouldHave(text("Refresh"));
-        $(By.id("subDetContViewTab")).click();
-        $(By.id("addNewContSms")).shouldBe(visible);
-        int trLength = $("#subscriberDataSMSGrid table tbody").findElements(By.tagName("tr")).size();
-        System.out.println("subscriberDataSMSGrid "+$("#subscriberDataSMSGrid table tbody").findElements(By.tagName("tr")).size());
-        $(By.id("addNewContSms")).click();
-        $(".modelButtonFloatRight button").shouldBe(visible);
-        // sleep(1000);
-		String rndStr = RandomStringUtils.randomAlphabetic(8);
-        $(By.id("contactLabel")).setValue(rndStr);
-        $(By.id("mdn")).click();
-        $(By.id("mdn")).sendKeys("(454) 545-4545");
-        $(By.id("exportBtn")).pressEnter();
-        sleep(3000);
-        System.out.println("subscriberDataSMSGrid after"+$("#subscriberDataSMSGrid table tbody").findElements(By.tagName("tr")).size());
-        int trLength1 = $("#subscriberDataSMSGrid table tbody").findElements(By.tagName("tr")).size();
-		$("#subscriberDataSMSGrid table tbody tr td").shouldHave(text(rndStr));
-		//$(“table.foo tr td”).shouldHave(text(“selenide”))
-		//$("#subscriberDataSMSGrid table tbody tr td").shouldHave(text(rndStr));
-        String successText = $(".alerts .alert-success div").innerText();
-        System.out.println("successText"+successText);
-        //assertThat(successText, is("Contact Added Successfully."));
-        //$$("#subscriberDataSMSGrid table tbody tr").shouldHave(sizeGreaterThan(trLength));
-
-    }*/
+    */
 
 }
