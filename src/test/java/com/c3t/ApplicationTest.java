@@ -186,7 +186,7 @@ public class ApplicationTest<var> {
         assertThat(mdnText, is("Please enter mdn"));
         screenshot("sub-scr-det3.png");
         //close();
-    }*/
+    }
 	@Test
     public void addContactSuccessTestCase() {
         open("subscribers");
@@ -216,7 +216,7 @@ public class ApplicationTest<var> {
         String successText = $(".alert-success div").innerText();
         System.out.println("successText"+successText);
         assertThat(successText, is("Contact Added Successfully."));
-    }
+    }*/
     /*@Test
     public void addContactAtrrMaxlengthExist() {
         open("subscribers");
