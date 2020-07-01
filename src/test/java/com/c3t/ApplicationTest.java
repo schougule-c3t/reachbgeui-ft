@@ -157,13 +157,13 @@ public class ApplicationTest<var> {
         $(By.id("subDetDiv")).shouldNotHave(attribute("class", "ng-hide"));
         $(By.className("k-loading-image")).shouldBe(visible);
         $(By.className("k-loading-image")).shouldBe(disappear);
-        sleep(4000);
+        sleep(1000);
         $(".pref-refresh span").shouldHave(text("Refresh"));
         $(By.id("subDetContViewTab")).click();
         $(By.id("addNewContSms")).shouldBe(visible);
         $(By.id("addNewContSms")).click();
         $(".modelButtonFloatRight button").shouldBe(visible);
-       // sleep(1000);
+        sleep(1000);
         $(By.id("exportBtn")).pressEnter();
         //$$("#programAlert").shouldHave(size(3));
         String inrText = $("#programAlert").innerText();
@@ -190,7 +190,7 @@ public class ApplicationTest<var> {
 	@Test
     public void addContactSuccessTestCase() {
         open("subscribers");
-        sleep(10000);
+        //sleep(10000);
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
         $(By.name("customerNumber")).setValue("0000000102");
         $(By.name("subscrSubmit")).click();
@@ -199,7 +199,7 @@ public class ApplicationTest<var> {
         $(By.className("view-det-btn")).shouldBe(visible);
         $(By.className("view-det-btn"),0).click();
         $(By.id("subDetDiv")).shouldNotHave(attribute("class", "ng-hide"));
-        //sleep(4000);
+        sleep(1000);
         $(".pref-refresh span").shouldHave(text("Refresh"));
         $(By.id("subDetContViewTab")).click();
         $(By.id("addNewContSms")).shouldBe(visible);
@@ -211,13 +211,13 @@ public class ApplicationTest<var> {
         $(By.id("mdn")).click();
         $(By.id("mdn")).sendKeys("(454) 545-4545");
         $(By.id("exportBtn")).pressEnter();
-        //sleep(3000);
+        sleep(1000);
         $(By.id("contactdata")).shouldBe(disappear);
         String successText = $(".alert-success div").innerText();
         System.out.println("successText"+successText);
         assertThat(successText, is("Contact Added Successfully."));
     }
-    /*@Test
+    /*@Test    // not required
     public void addContactAtrrMaxlengthExist() {
         open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
@@ -255,5 +255,99 @@ public class ApplicationTest<var> {
         $(By.id("contactSubBtn")).click();
     }
     */
-
+	/* Test case from Test Rail */
+    @Test  //#31571
+    public void openSearchPageSubscriber() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+    }
+    @Test  //#31572
+    public void displaysearchsubscriberfields() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("firstName")).shouldBe(visible);
+        $(By.id("lastName")).shouldBe(visible);
+        $(By.id("customerNumber")).shouldBe(visible);
+        $(By.id("accountID")).shouldBe(visible);
+    }
+    @Test  //#31573
+    public void searchSubscriberFirstname1() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("firstName")).setValue("BGETest");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("view-det-btn")).shouldBe(visible);
+    }
+    @Test  //#31573
+    public void searchSubscriberFirstname2() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("firstName")).setValue("B**");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("view-det-btn")).shouldBe(visible);
+    }
+    @Test  //#31573
+    public void searchSubscriberFirstname3() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("firstName")).setValue("norecord");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-pager-info")).shouldHave(text("No items to display"));
+    }
+    @Test  //#31574
+    public void searchSubscriberLastname1() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("lastName")).setValue("BGETest");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("view-det-btn")).shouldBe(visible);
+    }
+    @Test  //#31574
+    public void searchSubscriberLastname2() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("lastName")).setValue("B**");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("view-det-btn")).shouldBe(visible);
+    }
+    @Test  //#31574
+    public void searchSubscriberLastname3() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("lastName")).setValue("norecord");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-pager-info")).shouldHave(text("No items to display"));
+    }
+	@Test  //#31575
+    public void searchSubscriberAccountNumber1() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("accountID")).setValue("0000000002");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("view-det-btn")).shouldBe(visible);
+    }
+    @Test  //#31575
+    public void searchSubscriberAccountNumber2() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("accountID")).setValue("0000000000");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-pager-info")).shouldHave(text("No items to display"));
+    }
+	@Test  //#31576
+    public void searchSubscriberCustomerNumber1() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("customerNumber")).setValue("0000000001");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("view-det-btn")).shouldBe(visible);
+    }
+    @Test  //#31576
+    public void searchSubscriberCustomerNumber2() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("customerNumber")).setValue("0000000000");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-pager-info")).shouldHave(text("No items to display"));
+    }
 }
