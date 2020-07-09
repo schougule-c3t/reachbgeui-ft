@@ -157,13 +157,13 @@ public class ApplicationTest<var> {
         $(By.id("subDetDiv")).shouldNotHave(attribute("class", "ng-hide"));
         $(By.className("k-loading-image")).shouldBe(visible);
         $(By.className("k-loading-image")).shouldBe(disappear);
-        sleep(1000);
+        sleep(4000);
         $(".pref-refresh span").shouldHave(text("Refresh"));
         $(By.id("subDetContViewTab")).click();
         $(By.id("addNewContSms")).shouldBe(visible);
         $(By.id("addNewContSms")).click();
         $(".modelButtonFloatRight button").shouldBe(visible);
-        sleep(1000);
+       // sleep(1000);
         $(By.id("exportBtn")).pressEnter();
         //$$("#programAlert").shouldHave(size(3));
         String inrText = $("#programAlert").innerText();
@@ -190,7 +190,7 @@ public class ApplicationTest<var> {
 	@Test
     public void addContactSuccessTestCase() {
         open("subscribers");
-        //sleep(10000);
+        sleep(10000);
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
         $(By.name("customerNumber")).setValue("0000000102");
         $(By.name("subscrSubmit")).click();
@@ -199,7 +199,7 @@ public class ApplicationTest<var> {
         $(By.className("view-det-btn")).shouldBe(visible);
         $(By.className("view-det-btn"),0).click();
         $(By.id("subDetDiv")).shouldNotHave(attribute("class", "ng-hide"));
-        sleep(1000);
+        //sleep(4000);
         $(".pref-refresh span").shouldHave(text("Refresh"));
         $(By.id("subDetContViewTab")).click();
         $(By.id("addNewContSms")).shouldBe(visible);
@@ -211,13 +211,13 @@ public class ApplicationTest<var> {
         $(By.id("mdn")).click();
         $(By.id("mdn")).sendKeys("(454) 545-4545");
         $(By.id("exportBtn")).pressEnter();
-        sleep(1000);
+        //sleep(3000);
         $(By.id("contactdata")).shouldBe(disappear);
         String successText = $(".alert-success div").innerText();
         System.out.println("successText"+successText);
         assertThat(successText, is("Contact Added Successfully."));
     }
-    /*@Test    // not required
+    /*@Test
     public void addContactAtrrMaxlengthExist() {
         open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
