@@ -43,8 +43,8 @@ public class ApplicationTest<var> {
         open("login");
         clearBrowserCookies();
         WebDriverRunner.clearBrowserCache();
-        $(By.name("username")).setValue("superuser@bge.com");
-        $(By.name("password")).setValue("test123");
+        $(By.name("username")).setValue("superuser_dev@bge.com");
+        $(By.name("password")).setValue("tdev123");
         $(By.name("loginSubmit")).click();
         //screenshot("login.png");
     }
