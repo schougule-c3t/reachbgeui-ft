@@ -28,14 +28,18 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ApplicationTest<var> {
 
     private static final String BASE_URL = "http://69.89.12.213:8080/reachuibgeTestAutomation/app/#app/";
+    //private static final String BASE_URL = "http://localhost:8080/reachuibgeTestAutomation/app/#app/";
     @BeforeClass
     public static void setup() {
         Configuration.baseUrl = "http://69.89.12.213:8080/reachuibgeTestAutomation/app/#app/";
+        //Configuration.baseUrl = "http://localhost:8080/reachuibgeTestAutomation/app/#app/";
     }
     @Before
     public void setUp() {
@@ -56,7 +60,7 @@ public class ApplicationTest<var> {
         $(By.name("subscrSubmit")).click();
         assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
     }
-    @Test
+    /*@Test
     public void searchSubscriberPositiveResult() {
         //open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
@@ -216,7 +220,7 @@ public class ApplicationTest<var> {
         String successText = $(".alert-success div").innerText();
         System.out.println("successText"+successText);
         assertThat(successText, is("Contact Added Successfully."));
-    }
+    }*/
     /*@Test
     public void addContactAtrrMaxlengthExist() {
         open("subscribers");
@@ -256,7 +260,7 @@ public class ApplicationTest<var> {
     }
     */
 	/* Test case from Test Rail */
-    @Test  //#31571
+    /*@Test  //#31571
     public void openSearchPageSubscriber() {
         open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
@@ -394,5 +398,5 @@ public class ApplicationTest<var> {
         $(By.id("subDetContViewTab")).shouldBe(visible);
         $(By.id("accountViewTab")).shouldBe(visible);
         $(By.id("historyViewTab")).shouldBe(visible);
-    }
+    }*/
 }
