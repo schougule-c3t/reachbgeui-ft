@@ -19,6 +19,7 @@ import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.*;
 import com.codeborne.selenide.junit.ScreenShooter;
+import static com.codeborne.selenide.Selenide.screenshot;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -36,6 +37,7 @@ public class ApplicationTest<var> {
 
     private static final String BASE_URL = "http://69.89.12.213:8080/reachuibgeTestAutomation/app/#app/";
     //private static final String BASE_URL = "http://localhost:8080/reachuibgeTestAutomation/app/#app/";
+    
     @BeforeClass
     public static void setup() {
         Configuration.baseUrl = "http://69.89.12.213:8080/reachuibgeTestAutomation/app/#app/";
@@ -44,8 +46,14 @@ public class ApplicationTest<var> {
     @Before
     public void setUp() {
         // Set authentication
+        String currentWorkingDir = System.getProperty("user.dir");
+        System.out.println("Root Path: "+ currentWorkingDir);
+        //System.setProperty("remote-debugging-port", "9515");
+        //System.setProperty("webdriver.chrome.driver", "D:/cloud3tech/reachbuiAutomation/drivers/windows/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "/tmp/chromedriver_linux64/chromedriver");
         open("login");
         clearBrowserCookies();
+
         WebDriverRunner.clearBrowserCache();
         $(By.name("username")).setValue("superuser_dev@bge.com");
         $(By.name("password")).setValue("tdev123");
@@ -125,8 +133,8 @@ public class ApplicationTest<var> {
         $(By.name("subscrSubmit")).click();
         $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
         assertThat($(By.id("accountID")).getAttribute("maxlength"), is("11"));
-    }
-   @Test
+    }*/
+   /*@Test
     public void contactSearchEmptyValidation() {
         //open("subscribers");
         $(By.className("cont-srch")).click();
