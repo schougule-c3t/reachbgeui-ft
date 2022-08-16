@@ -30,6 +30,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-devtools")
     implementation 'com.codeborne:selenide:5.2.2'
+    //implementation 'org.seleniumhq.selenium:selenium-chrome-driver:3.141.59'
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.4.2')
     testRuntime('org.junit.jupiter:junit-jupiter-engine:5.4.2')
@@ -39,8 +40,11 @@ test {
 }
 task chrome(type: Test) {
   systemProperties['selenide.browser'] = 'chrome'
+  //systemProperties['selenide.browserVersion'] = '104.0.5112.81'
+  //systemProperties['webdriver.chrome.driver'] = 'D:/cloud3tech/reachbuiAutomation/drivers/chromedriver.exe'
   systemProperties['selenide.headless'] = 'true'
-  systemProperties['chromeoptions.args'] = '--headless,--disable-gpu,--no-sandbox,--disable-dev-shm-usage'
+  //systemProperties['chromeoptions.args'] = '--headless,--disable-gpu,--no-sandbox,--disable-dev-shm-usage'
+  systemProperties['chromeoptions.args'] = '--headless,--disable-gpu,--no-sandbox,--disable-dev-shm-usage,--remote-debugging-port=9515,--disable-extensions,--disable-setuid-sandbox,start-maximized'
 }
 
 task firefox(type: Test) {
