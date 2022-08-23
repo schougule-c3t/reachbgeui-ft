@@ -1,5 +1,5 @@
 # Ignore Gradle project-specific cache directory
 .gradle
-
+New folder/
 # Ignore Gradle build output directory
 build

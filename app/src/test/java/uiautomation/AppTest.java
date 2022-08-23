@@ -4,41 +4,60 @@
 package uiautomation;
 
 import com.codeborne.selenide.Configuration;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.hamcrest.MatcherAssert;
-import org.junit.*;
-import org.junit.Before;
-//import org.junit.BeforeClass;
-//import org.junit.Test;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Condition.*;
 //import static org.hamcrest.*;
 
+//@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AppTest {
-    //private static final String BASE_URL = "http://69.89.12.213:8080/reachuibgeTestAutomation/app/#app/";
-    private static final String BASE_URL = "http://localhost:8080/reachuibgeTestAutomation/app/#app/";
+    WebDriverManager driver;
+    private static final String BASE_URL = "http://69.89.12.213:8080/reachuibgeTestAutomation/app/#app/";
+    //private static final String BASE_URL = "http://localhost:8080/reachuibgeTestAutomation/app/#app/";
 
+    @BeforeAll
+    static void setupAll() {
+        WebDriverManager.chromedriver().setup();
+        System.setProperty("--headless", "true");
+        System.setProperty("--disable-dev-shm-usage", "true");
+        System.setProperty("--no-sandbox", "true");
+        System.setProperty("WebDriverManager.chrome.driver","/tmp/chromedriver_linux64/chromedriver");
+    }
+//    @AfterEach
+//    void teardown() {
+//        driver.quit();
+//    }
     @BeforeClass
     public static void setup() {
-        //Configuration.baseUrl = "http://69.89.12.213:8080/reachuibgeTestAutomation/app/#app/";
-        Configuration.baseUrl = "http://localhost:8080/reachuibgeTestAutomation/app/#app/";
+        Configuration.baseUrl = "http://69.89.12.213:8080/reachuibgeTestAutomation/app/#app/";
+        //Configuration.baseUrl = "http://localhost:8080/reachuibgeTestAutomation/app/#app/";
     }
     @BeforeEach
     public void setUp() {
         // Set authentication
-        //System.setProperty("remote-debugging-port", "9515");
-        //System.setProperty("webdriver.chrome.driver", "D:/cloud3tech/reachbuiAutomation/drivers/windows/chromedriver.exe");
-        //System.setProperty("webdriver.chrome.driver", "/tmp/chromedriver_linux64/chromedriver");
-        open("http://69.89.12.213:8080/reachuibgeTestAutomation/app/#app/login");
+        //open("http://69.89.12.213:8080/reachuibgeTestAutomation/app/#app/login");
+        //System.setProperty("WebDriverManager.chrome.driver", "D:/cloud3tech/reachbuiAutomation/drivers/windows/chromedriver.exe");
+        System.setProperty("WebDriverManager.chrome.driver","/tmp/chromedriver_linux64/chromedriver");
+        System.setProperty("--headless", "true");
+        System.setProperty("--disable-dev-shm-usage", "true");
+        System.setProperty("--no-sandbox", "true");
+        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("useAutomationExtension", false);
+        //WebDriver driver = new ChromeDriver(options);
+        //driver.get(BASE_URL);
+        open(BASE_URL+"login");
         //clearBrowserCookies();
-
         //WebDriverRunner.clearBrowserCache();
         $(By.name("username")).setValue("superuser_dev@bge.com");
         $(By.name("password")).setValue("tdev123");
@@ -46,7 +65,7 @@ class AppTest {
         //screenshot("login.png");
     }
     @Test
-    public void searchSubscriberEmptyValidation(){
+    public void SubscriberSearchEmptyValidation(){
         $(By.name("subscrSubmit")).click();
         MatcherAssert.assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
     }
