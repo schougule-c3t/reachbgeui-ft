@@ -13,6 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.boot.test.context.SpringBootTest;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.*;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -69,8 +72,107 @@ class AppTest {
         $(By.name("subscrSubmit")).click();
         MatcherAssert.assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
     }
-    /*@Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    @Test
+    public void searchSubscriberPositiveResult() {
+        //open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        //getWebDriver().findElement(By.id("customerNumber"));
+        $(By.name("customerNumber")).setValue("xxx0000001");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-loading-image")).shouldBe(visible);
+        assertThat($(".k-pager-info").text(), is("No items to display"));
+        $(By.name("customerNumber")).setValue("0000000102");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-loading-image")).shouldBe(visible);
+        //screenshot("SubSrchLoadding.png");
+        //sleep(6000);
+        //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
+        $(By.className("k-pager-info")).shouldHave(text("items"));
+        //screenshot("SubSrchWithResult.png");
+    }
+    @Test
+    public void searchSubscriberFirstnameNegative() {
+        //open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("firstName")).setValue("a");
+        $(By.name("subscrSubmit")).click();
+        //screenshot("FirstnameErrorMessage.png");
+        //assertThat($(".k-pager-info").text(), is("1 - 1 of 1 items"));
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+        $(By.id("firstName")).setValue("aa");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+    }
+    @Test
+    public void searchSubscriberLastnameNegative() {
+        //open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("lastName")).setValue("a");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+        $(By.id("lastName")).setValue("aa");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+    }
+    @Test
+    public void searchSubscriberCustNoNegative() {
+        //open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("customerNumber")).setValue("a");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+        $(By.id("customerNumber")).setValue("aa");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+        assertThat($(By.id("customerNumber")).getAttribute("maxlength"), is("10"));
+    }
+    @Test
+    public void searchSubscriberAccNoNegative() {
+        //open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.id("accountID")).setValue("a");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+        $(By.id("accountID")).setValue("aa");
+        $(By.name("subscrSubmit")).click();
+        $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
+        assertThat($(By.id("accountID")).getAttribute("maxlength"), is("11"));
+    }
+    /*@Test
+    public void addContactAtrrMaxlengthExist() {
+        open("subscribers");
+        $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
+        $(By.name("customerNumber")).setValue("0000000102");
+        $(By.name("subscrSubmit")).click();
+        $(By.className("k-loading-image")).shouldBe(visible);
+        $(By.className("k-loading-image")).shouldBe(disappear);
+        $(By.className("k-pager-info")).shouldHave(text("items"));
+        //sleep(36000);
+        $(By.className("view-det-btn")).shouldBe(visible);
+        $(By.className("view-det-btn"),0).click();
+        $(By.id("subDetDiv")).shouldNotHave(attribute("class", "ng-hide"));
+        $(By.className("k-loading-image")).shouldBe(visible);
+        $(By.className("k-loading-image")).shouldBe(disappear);
+        sleep(4000);
+        $(".pref-refresh span").shouldHave(text("Refresh"));
+        $(By.id("subDetContViewTab")).click();
+        $(By.id("addNewContSms")).shouldBe(visible);
+        $(By.id("addNewContSms")).click();
+        $(".modelButtonFloatRight button").shouldBe(visible);
+        // sleep(1000);
+        $(By.id("contactLabel")).shouldHave(attribute("maxlength"));
+    }
+
+   @Test //kendo drop down selection issue still pending
+    public void contactSearchPush() {
+        open("subscribers");
+        $(By.className("cont-srch")).click();
+        $(By.id("cnt-title")).shouldHave(text("Search Criteria"));
+        //$(By.id("notificationContactTypeChannel")).shouldBe(visible);
+        $(By.id("notificationContactTypeChannel")).selectOptionByValue("Push");
+       // $(By.id("contactSearch")).setValue("BGE_1233456");
+        //$(By.id("subscriberContactFromDate")).setValue("2020-04-01");
+       // screenshot("con-srch-push-negative.png");
+        $(By.id("contactSubBtn")).click();
     }*/
 }
