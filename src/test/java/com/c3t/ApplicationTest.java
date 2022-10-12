@@ -53,7 +53,6 @@ public class ApplicationTest<var> {
         System.setProperty("webdriver.chrome.driver", "/tmp/chromedriver_linux64/chromedriver");
         open("login");
         clearBrowserCookies();
-
         WebDriverRunner.clearBrowserCache();
         $(By.name("username")).setValue("superuser_dev@bge.com");
         $(By.name("password")).setValue("tdev123");
@@ -68,7 +67,7 @@ public class ApplicationTest<var> {
         $(By.name("subscrSubmit")).click();
         assertThat($("#programAlert div").text(), is("Please enter at least one search criteria"));
     }
-    /*@Test
+    @Test
     public void searchSubscriberPositiveResult() {
         //open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
@@ -133,7 +132,7 @@ public class ApplicationTest<var> {
         $(By.name("subscrSubmit")).click();
         $("#programAlert div").shouldHave(text("Please enter minimum 3 characters."));
         assertThat($(By.id("accountID")).getAttribute("maxlength"), is("11"));
-    }*/
+    }
    /*@Test
     public void contactSearchEmptyValidation() {
         //open("subscribers");
@@ -229,7 +228,7 @@ public class ApplicationTest<var> {
         System.out.println("successText"+successText);
         assertThat(successText, is("Contact Added Successfully."));
     }*/
-    /*@Test
+    @Test
     public void addContactAtrrMaxlengthExist() {
         open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
@@ -266,9 +265,9 @@ public class ApplicationTest<var> {
        // screenshot("con-srch-push-negative.png");
         $(By.id("contactSubBtn")).click();
     }
-    */
+    
 	/* Test case from Test Rail */
-    /*@Test  //#31571
+    @Test  //#31571
     public void openSearchPageSubscriber() {
         open("subscribers");
         $(By.className("ra-well-title")).shouldHave(text("Search Criteria"));
@@ -406,5 +405,5 @@ public class ApplicationTest<var> {
         $(By.id("subDetContViewTab")).shouldBe(visible);
         $(By.id("accountViewTab")).shouldBe(visible);
         $(By.id("historyViewTab")).shouldBe(visible);
-    }*/
+    }
 }
