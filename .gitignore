@@ -1,0 +1,12 @@
+node_modules/
+reachui/
+reachui-demo/
+logs/
+.vscode
+.idea
+New folder/
+ReachuiA.iml
+reachui.zip
+.tours
+cypress/videos/todo.cy.js.mp4
+cypress/reports/html/

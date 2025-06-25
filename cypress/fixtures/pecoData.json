@@ -1,0 +1,13 @@
+{
+ "id": 1,
+ "email": "superuser_dev",
+ "password": "tdev123",
+ "adhocAccNumFilter": "4000744321",
+ "accountNumber": "4000744321",
+ "customerNumber": "4000044321",
+ "premiseNumber": "4000744321",
+ "feeder": "A441Y",
+ "servicePointNumber": "4000744321",
+ "transformerNo": "T40118",
+ "subSearchEmailId": "msundaravadivelu@cloud3tech.com"
+}

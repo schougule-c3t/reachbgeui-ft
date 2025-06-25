@@ -1,0 +1,38 @@
+{
+  "name": "ccb",
+  "version": "1.0.0",
+  "scripts": {
+    "test:e2e": "cypress run --env opco=peco --browser chrome --spec cypress/e2e/1-testcase/testcaseorder/",
+    "testInternal:UAT": "cypress run --env opco=peco --browser chrome --config baseUrl=http://69.89.2.3:8080/ccb/app/#app/ --spec cypress/e2e/1-testcase/1-a-local-test-file.cy.js",
+    "testPeco:e2e:Dev": "cypress run --env opco=peco --browser chrome --config baseUrl=http://68.169.48.106:8080/ccb/app/#app/  --spec cypress/e2e/1-testcase/testcaseorder/",
+    "testComed:e2e:Dev": "cypress run --env opco=comed --browser chrome --config baseUrl=http://68.169.48.106:8080/ccb/app/#app/  --spec cypress/e2e/1-testcase/testcaseorder/",
+    "testPeco:e2e:UAT": "cypress run --env opco=peco --browser chrome --config baseUrl=http://69.89.2.3:8080/ccb/app/#app/  --spec cypress/e2e/1-testcase/testcaseorder/",
+    "createPecoSubAcc:UAT": "cypress run --env opco=peco --browser chrome --config baseUrl=http://69.89.2.3:8080/ccb/app/#app/  --spec cypress/e2e/1-testcase/create-sub-acc/01-create-subscriber-acc.cy.js",
+    "removePecoSubAcc:UAT": "cypress run --env opco=peco --browser chrome --config baseUrl=http://69.89.2.3:8080/ccb/app/#app/  --spec cypress/e2e/1-testcase/remove-sub-acc/01-remove-subscriber-acc.cy.js",
+    "testComed:e2e:UAT": "cypress run --env opco=comed --browser chrome --config baseUrl=http://69.89.2.3:8080/ccb/app/#app/  --spec cypress/e2e/1-testcase/testcaseorder/",
+    "createComedSubAcc:UAT": "cypress run --env opco=comed --browser chrome --config baseUrl=http://69.89.2.3:8080/ccb/app/#app/  --spec cypress/e2e/1-testcase/create-sub-acc/01-create-subscriber-acc.cy.js",
+    "removeComedSubAcc:UAT": "cypress run --env opco=comed --browser chrome --config baseUrl=http://69.89.2.3:8080/ccb/app/#app/  --spec cypress/e2e/1-testcase/remove-sub-acc/01-remove-subscriber-acc.cy.js"
+  },
+  "devDependencies": {
+    "chai": "^4.3.10",
+    "cypress": "^13.3.0",
+    "cypress-cucumber-preprocessor": "^4.3.1",
+    "cypress-mochawesome-reporter": "^3.5.0",
+    "cypress-multi-reporters": "^1.6.3",
+    "mocha-junit-reporter": "^2.2.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0",
+    "multiple-cucumber-html-reporter": "^3.4.0"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "cypress/cucumber-json",
+      "filePrefix": "",
+      "fileSuffix": ".cucumber"
+    }
+  },
+  "testFiles": "**/*.feature"
+}

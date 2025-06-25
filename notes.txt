@@ -1,0 +1,15 @@
+To start Local
+1. cypress-ccb>node_modules\.bin\cypress open
+
+Another way
+2. npx cypress run --spec "cypress\e2e\1-testcase\todo.cy.js"
+
+
+To start cypress general commands
+1. (requires npm@5.2.0 or greater)  npx cypress run
+	OR
+2. npx cypress run
+	OR
+3. $(npm bin)/cypress run
+	OR
+4. ./node_modules/.bin/cypress run
